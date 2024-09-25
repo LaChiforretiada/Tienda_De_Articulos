@@ -4,10 +4,21 @@
     {
         public bool OfertaRelampago { get; set; }
  
-        public Venta(List<Articulo> articulos, string nombre, string estado, DateTime fecha, Cliente cliente, Administrador administrador, bool ofertaRelampago)
-          : base(articulos, nombre, estado, fecha, cliente, administrador)
+        public Venta(string nombre, string estado, DateTime fecha, Cliente cliente, Administrador administrador, bool ofertaRelampago)
+          : base(nombre, estado, fecha, cliente, administrador)
         {
             OfertaRelampago = ofertaRelampago;
         }
+
+
+        public override string ToString()
+        {
+            string respuesta = base.ToString();
+            respuesta += $"Es Oferta? {OfertaRelampago} \n";
+            return respuesta;
+        }
+
+
+
     }
 }

@@ -12,12 +12,20 @@
                 return _ofertas;
             }
         }
-        public Subasta(List<Articulo> articulos, string nombre, string estado, DateTime fecha, Cliente cliente, Administrador administrador)
-        : base(articulos, nombre, estado, fecha, cliente, administrador)
+
+        public Subasta(string nombre, string estado, DateTime fecha, Cliente cliente, Administrador administrador)
+        : base(nombre, estado, fecha, cliente, administrador)
         {
 
 
 
+        }
+
+
+        public override string ToString()
+        {
+            string respuesta = base.ToString();
+            return respuesta;
         }
     }
 }

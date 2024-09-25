@@ -1,30 +1,19 @@
 ﻿namespace Dominio.Entidades
 {
-    public class Cliente
+    public class Cliente : Usuario
     {
+        public decimal Saldo { get; set; }
 
-        public int Id { get; set; }
-
-        public string Nombre { get; set; }
-
-        public string Apellido { get; set; }
-
-        public string Mail { get; set; }
-
-        public string Contrasenia { get; set; }
-
-        public Decimal Saldo { get; set; }
-
-        private static int _ultimoId;
-
-        public Cliente( string nombre, string apellido, string mail, string contrasenia, decimal saldo)
+        public Cliente(decimal saldo, string nombre, string apellido, string mail, string contrasenia) : base(nombre, apellido, mail, contrasenia)
         {
-            Id = _ultimoId++;
-            Nombre = nombre;
-            Apellido = apellido;
-            Mail = mail;
-            Contrasenia = contrasenia;
             Saldo = saldo;
+        }
+
+        public override string ToString()
+        {
+            string respuesta = base.ToString();
+            respuesta += $"Saldo: {Saldo} \n";
+            return respuesta;
         }
     }
 }
