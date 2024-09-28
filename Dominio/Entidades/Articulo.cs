@@ -1,4 +1,5 @@
-﻿namespace Dominio.Entidades
+﻿
+namespace Dominio.Entidades
 {
     public class Articulo
     {
@@ -9,7 +10,7 @@
         public string Categoria { get; set; }
 
         public int Precio { get; set; }
-        
+
         private static int _ultimoId;
 
         public Articulo(string nombre, string categoria, int precio)
@@ -18,6 +19,38 @@
             Nombre = nombre;
             Categoria = categoria;
             Precio = precio;
+        }
+
+        public void ValidarArticulo()
+        {
+            ValidarNombre();
+            ValidarCategoria();
+            ValidarPrecio();
+        }
+
+        private void ValidarPrecio()
+        {
+            if (Precio <= 0) 
+            {
+                throw new Exception("Precio debe ser mayor a 0");
+            }
+        }
+
+        private void ValidarCategoria()
+        {
+            if (string.IsNullOrEmpty(Categoria))
+            {
+                throw new Exception("No se recibieron valores");
+            }
+        }
+
+        private void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre))
+            {
+                throw new Exception("No se recibieron valores");
+            }
+
         }
 
         public override string ToString()

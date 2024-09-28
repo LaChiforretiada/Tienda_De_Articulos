@@ -48,6 +48,15 @@ namespace Dominio
             _usuarios.Add(usuario);
         }
 
+        public void AgregarArticulo(Articulo articulo) { 
+            if (articulo == null)
+            {
+                throw new Exception("No se recibieron valores");
+            }
+            articulo.ValidarArticulo();
+            _articulos.Add(articulo);
+        }
+
         public Usuario ObtenerUsuario(string email)
         {
             foreach (Usuario unUsuario in _usuarios)

@@ -30,7 +30,35 @@ namespace Dominio.Entidades
             ValidarNombre();
             ValidarApellido();
             ValidarContrasenia();
+            ValidarMailVacio();
+        }
 
+        private void ValidarMailVacio()       
+        {
+            if (!string.IsNullOrEmpty(Mail))
+            {
+                ValidarMailFormato(Mail);
+            }
+            else
+            {
+                throw new Exception("Mail no puede ser vacio");
+            }
+        }
+
+        private void ValidarMailFormato(string mail)
+        {
+            bool valid = false;
+            foreach (char c in mail)
+            {
+                if (c == '@')
+                {
+                    valid = true;
+                }
+            }
+            if (valid == false)
+            {
+                throw new Exception("El formato del mail es incorrecto");
+            }
         }
 
         private void ValidarNombre()
@@ -89,6 +117,11 @@ namespace Dominio.Entidades
             return respuesta;
         }
 
+        public override bool Equals(object? obj) 
+        { 
+            Usuario usuario = obj as Usuario;
+            return usuario != null && Mail == usuario.Mail;
 
+        }
     }
 }
