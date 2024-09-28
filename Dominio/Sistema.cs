@@ -2,9 +2,9 @@
 
 namespace Dominio
 {
-
+    //VERIFICAR MAIL
     //PREGUNTAR SOBRE LA LISTA DE ARTICULOS EN PUBLICACIONES TODO
-    internal class Sistema
+    public class Sistema
     {
         private List<Usuario> _usuarios = new List<Usuario>();
         private List<Articulo> _articulos = new List<Articulo>();
@@ -18,7 +18,7 @@ namespace Dominio
             }
         }
 
-        public List<Articulo> Articulos 
+        public List<Articulo> Articulos
         {
             get
             {
@@ -33,5 +33,34 @@ namespace Dominio
                 return _publicaciones;
             }
         }
+
+        public void AgregarUsuario(Usuario usuario)
+        {
+            if (usuario == null)
+            {
+                throw new Exception("No se recibieron los valores");
+            }
+            if (_usuarios.Contains(usuario))
+            {
+                throw new Exception($"El usuario con el mail seleccionado {usuario.Mail} ya existe");
+            }
+            usuario.ValidarUsuario();
+            _usuarios.Add(usuario);
+        }
+
+        public Usuario ObtenerUsuario(string email)
+        {
+            foreach (Usuario unUsuario in _usuarios)
+            {
+                if (unUsuario.Mail == email)
+                {
+                    return unUsuario;
+                }
+            }
+            return null;
+        }
+        
+       
+
     }
 }

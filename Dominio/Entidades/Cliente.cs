@@ -9,6 +9,11 @@
             Saldo = saldo;
         }
 
+        public override void ValidarUsuario()
+        {
+            base.ValidarUsuario();
+        }
+
         public override string ToString()
         {
             string respuesta = base.ToString();

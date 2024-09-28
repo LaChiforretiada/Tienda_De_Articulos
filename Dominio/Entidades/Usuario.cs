@@ -1,4 +1,6 @@
-﻿namespace Dominio.Entidades
+﻿
+
+namespace Dominio.Entidades
 {
     public abstract class Usuario
     {
@@ -23,7 +25,56 @@
             Contrasenia = contrasenia;
         }
 
+        public virtual void ValidarUsuario()
+        {
+            ValidarNombre();
+            ValidarApellido();
+            ValidarContrasenia();
 
+        }
+
+        private void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre)) 
+            {
+                throw new Exception("Nombre debe contener caracteres");
+            }
+        }
+        private void ValidarApellido()
+        {
+            if (string.IsNullOrEmpty(Apellido))
+            {
+                throw new Exception("Apellido debe contener caracteres");
+            }
+        }
+
+        private void ValidarContrasenia()
+        {
+            if (!string.IsNullOrEmpty(Contrasenia))
+            {
+                ValidarFormato(Contrasenia);
+            }
+            else
+            {
+                throw new Exception("Contrasenia debe contener caracteres");
+            }
+        }
+
+        private void ValidarFormato(string contra)
+        {
+            bool valid = false;
+            for (int i = 0; i < contra.Length; i++)
+            {
+                if (char.IsUpper(contra[i]))
+                {
+                valid = true;
+                }
+            }
+            if (valid == false)
+            {
+                throw new Exception("La contrasenia debe contener al menos una Mayuscula");
+            }
+        }
 
 
         public override string ToString() 
