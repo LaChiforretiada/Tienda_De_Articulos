@@ -4,12 +4,21 @@
     {
         public bool OfertaRelampago { get; set; }
  
-        public Venta(string nombre, string estado, DateTime fecha, Cliente cliente, Administrador administrador, bool ofertaRelampago)
-          : base(nombre, estado, fecha, cliente, administrador)
+        public Venta(string nombre, DateTime fechaPublicacion, bool ofertaRelampago)
+          : base(nombre, fechaPublicacion)
         {
             OfertaRelampago = ofertaRelampago;
         }
 
+        public override void Validar()
+        {
+            base.Validar();
+        }
+
+        //private void ValidarOferta()
+        //{
+        //    if (OfertaRelampago) { }
+        //}
 
         public override string ToString()
         {

@@ -9,11 +9,19 @@
             Saldo = saldo;
         }
 
-        public override void ValidarUsuario()
+        public override void Validar()
         {
-            base.ValidarUsuario();
+            base.Validar();
+            ValidarSaldo();
         }
 
+        private void ValidarSaldo()
+        {
+            if (Saldo < 0)
+            {
+                throw new Exception("No puedes tener saldo negativo");
+            } 
+        }
         public override string ToString()
         {
             string respuesta = base.ToString();

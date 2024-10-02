@@ -16,11 +16,12 @@
         public Subasta(string nombre, DateTime fechaPublicacion)
         : base(nombre, fechaPublicacion)
         {
-
-
-
         }
 
+        public override void Validar()
+        {
+            base.Validar();
+        }
 
         public override string ToString()
         {

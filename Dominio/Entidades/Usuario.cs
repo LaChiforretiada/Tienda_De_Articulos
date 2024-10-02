@@ -25,7 +25,7 @@ namespace Dominio.Entidades
             Contrasenia = contrasenia;
         }
 
-        public virtual void ValidarUsuario()
+        public virtual void Validar()
         {
             ValidarNombre();
             ValidarApellido();
@@ -113,7 +113,7 @@ namespace Dominio.Entidades
             respuesta += $"Nombre: {Nombre} \n";
             respuesta += $"Apellido: {Apellido} \n";
             respuesta += $"Mail: {Mail} \n";
-            respuesta += $"Contrasenia: {Contrasenia} \n";
+            //respuesta += $"Contrasenia: {Contrasenia} \n";
             return respuesta;
         }
 

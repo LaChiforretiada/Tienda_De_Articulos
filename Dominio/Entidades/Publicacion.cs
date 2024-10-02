@@ -18,26 +18,57 @@
 
         public string Estado { get; set; }
 
-        public DateTime Fecha { get; set; }
+        public DateTime FechaPublicacion { get; set; }
 
-
+        public DateTime FechaFinalizacion { get; set; }
         public Cliente Cliente { get; set; }
 
         public Administrador Administrador { get; set; }
 
         private static int _ultimoId;
 
-        
-        public Publicacion(string nombre, string estado, DateTime fecha, Cliente cliente, Administrador administrador)
+
+        public Publicacion(string nombre, DateTime fechaPublicacion)
         {
             Id = _ultimoId++;
             Nombre = nombre;
-            Estado = estado;
-            Fecha = fecha;
-            Cliente = cliente;
-            Administrador = administrador;
+            Estado = "ABIERTA";
+            FechaPublicacion = fechaPublicacion;
         }
 
+        public virtual void Validar()
+        {
+            ValidarNombre();
+            ValidarFecha();
+        }
+
+        private void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre))
+            {
+                throw new Exception("Nombre debe contener caracteres");
+            }
+        }
+
+        private void ValidarFecha()
+        {
+            DateTime fechaHoy = DateTime.Now;
+            if (FechaPublicacion < fechaHoy)
+            {
+                throw new Exception("No se puede publicar en fecha anteriroes.");
+            }
+        }
+
+
+        public void AgregarArticulo(Articulo articulo)
+        {
+            if(articulo == null)
+            {
+                throw new Exception("No se recibieron valores");
+            }
+            articulo.Validar();
+            _articulos.Add(articulo);
+        }
 
 
         public override string ToString()
@@ -47,11 +78,21 @@
             respuesta += $"Id: {Id} \n";
             respuesta += $"Nombre: {Nombre} \n";
             respuesta += $"Estado: {Estado} \n";
-            respuesta += $"Fecha: {Fecha} \n";
-            respuesta += $"Cliente: {Cliente.Nombre} \n";
-            respuesta += $"Administrador: {Administrador.Nombre} \n";
-            respuesta += $"Articulos: {Articulos} \n";
+            respuesta += $"FechaPublicacion: {FechaPublicacion} \n";
+            respuesta += $"FechaFinalizacion: {FechaFinalizacion} \n";
+            //respuesta += $"Cliente: {Cliente.Nombre} \n";
 
+            foreach (Articulo item in _articulos)
+            {
+                if(_articulos.Count <= 0)
+                {
+                    respuesta += $"No contiene articulos";
+                }
+                else
+                {
+                    respuesta += $"Articulos -->{item.Nombre}\n";
+                }
+            }
             return respuesta;
         }
 

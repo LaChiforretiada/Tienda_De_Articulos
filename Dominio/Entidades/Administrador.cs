@@ -6,6 +6,11 @@
         {
         }
 
+        public override void Validar()
+        {
+            base.Validar();
+        }
+
         public override string ToString()
         {
             string respuesta = base.ToString();

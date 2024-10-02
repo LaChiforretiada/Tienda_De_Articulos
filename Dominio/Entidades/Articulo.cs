@@ -21,7 +21,7 @@ namespace Dominio.Entidades
             Precio = precio;
         }
 
-        public void ValidarArticulo()
+        public void Validar()
         {
             ValidarNombre();
             ValidarCategoria();

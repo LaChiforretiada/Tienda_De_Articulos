@@ -20,7 +20,10 @@ namespace AppTest
                     "3- Agregar Articulos\n" +
                     "4- Listar Clientes\n" +
                     "5- Listar Articulos por Categoria\n" +
-                    //"6-Agregar Telefono\n" +
+                    "6- Agregar Venta\n" +
+                    "7- Agregar Subasta\n" +
+                    "8- Listar Publicacion\n" +
+                    "9- Listar Publicacion por fechas\n" +
                     "0- Salir");
                 switch (opcion)
                 {
@@ -40,7 +43,16 @@ namespace AppTest
                         ListarArticulosPorCategoria();
                         break;
                     case 6:
-
+                        AgregarVenta();
+                        break;
+                    case 7:
+                        AgregarSubasta();
+                        break;
+                    case 8:
+                        ListarPublicaciones();
+                        break;
+                    case 9:
+                        ListarPublicacionesPorFecha(new DateTime(2024,10,14), new DateTime(2024, 12, 1));
                         break;
                     default:
                         break;
@@ -49,13 +61,93 @@ namespace AppTest
             while (opcion != 0);
         }
 
+        private static void AgregarVenta()
+        {
+            try
+            {
+                MostrarTitulo("Agregar Venta");
+                string nombre = PedirString("Ingrese nombre de la venta");
+                Publicacion unaVenta = new Venta(nombre, new DateTime(2024, 11, 20), true);
+                _sistema.AgregarPublicacion(unaVenta);
+            }
+            catch (Exception e)
+            {
+                MostrarError(e.Message);
+            }
+        }
+
+        private static void AgregarSubasta()
+        {
+            try
+            {
+                MostrarTitulo("Agregar Subasta");
+                string nombre = PedirString("Ingrese nombre de la subasta");
+                Publicacion unaSubasta = new Subasta(nombre, new DateTime(2024, 10, 20));
+                _sistema.AgregarPublicacion(unaSubasta);
+            }
+            catch (Exception e)
+            {
+                MostrarError(e.Message);
+            }
+        }
+
+        private static void AgregarArticuloPublicacion()
+        {
+            try
+            {
+                MostrarTitulo("Agregar Articulo");
+                
+
+
+            }
+            catch (Exception e)
+            {
+                MostrarError(e.Message);
+            }
+        }
+
+        private static void ListarPublicaciones()
+        {
+            MostrarTitulo("Publicaciones");
+            List<Publicacion> publicaciones = _sistema.Publicaciones;
+            if (publicaciones.Count == 0)
+            {
+                MostrarError("No hay publicaciones disponibles");
+            }
+            foreach (Publicacion unaP in publicaciones)
+            {
+                Console.WriteLine($"{unaP}");
+            }
+        }
+
+        private static void ListarPublicacionesPorFecha(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            MostrarTitulo("Publicaciones");
+            List<Publicacion> publicaciones = _sistema.Publicaciones;
+            if(publicaciones.Count == 0)
+            {
+                MostrarError("No hay publicaciones disponibles");
+            }
+            foreach (Publicacion unaP in publicaciones)
+            {
+                if(unaP.FechaPublicacion >= fechaInicio && unaP.FechaPublicacion <= fechaFinal)
+                {
+                    Console.WriteLine($" Id:{unaP.Id} \n Nombre: {unaP.Nombre} \n Estado: {unaP.Estado} \n Fecha: {unaP.FechaPublicacion}");
+                }
+                else
+                {
+                    MostrarError("No hay publicaciones disponibles entre esas fechas");
+                }
+            }
+        }
+
         private static void ListarArticulosPorCategoria()
         {
             string categoria = PedirString("Ingrese categoria");
             List<Articulo> articulos = _sistema.Articulos;
             if(articulos.Count == 0) 
             {
-                Console.WriteLine("No hay articulos disponibles");
+                MostrarError("No hay articulos disponibles");
             }   
             foreach (Articulo unArticulo in articulos)
             {
@@ -65,7 +157,7 @@ namespace AppTest
                 }
                 else
                 {
-                    Console.WriteLine("No hay articulos de esa categoria");
+                    MostrarError("No hay articulos de esa categoria");
                 }
             }
         }
@@ -108,12 +200,45 @@ namespace AppTest
             }
         }
 
-        private static string TextoIgualado(string texto)
-        {
-            string lower = texto.ToLower();
-            return lower;
-        }
 
+        private static void AgregarUsuarioCliente()
+        {
+            try
+            {
+                MostrarTitulo("Agregar Usuario");
+                decimal saldo = 4000;
+                string nombre = PedirString("Ingrese nombre");
+                string apellido = PedirString("Ingrese apellido");
+                string mail = PedirString("Ingrese mail");
+                string contrasenia = PedirString("Ingrese contrasenia");
+                Usuario usuario = new Cliente(saldo, nombre, apellido, mail, contrasenia);
+
+                _sistema.AgregarUsuario(usuario);
+            }
+            catch (Exception e)
+            {
+                MostrarError(e.Message);
+            }
+        }
+        private static void ListarClientes()
+        {
+            List<Usuario> usuarios = _sistema.Usuarios;
+            if (usuarios.Count == 0)
+            {
+                Console.WriteLine("No hay clientes disponibles");
+            }
+            else
+            {
+                foreach (Usuario item in usuarios)
+                {
+                    Cliente cliente = item as Cliente;
+                    if (cliente != null)
+                    {
+                        Console.WriteLine($"{item}");
+                    }
+                }
+            }
+        }
         private static int PedirNumero(string mensaje)
         {
             int numero = 0;
@@ -136,45 +261,12 @@ namespace AppTest
             return numero;
         }
 
-        private static void AgregarUsuarioCliente()
+        private static string TextoIgualado(string texto)
         {
-            try
-            {
-                MostrarTitulo("Agregar Usuario");
-                decimal saldo = 4000;
-                string nombre = PedirString("Ingrese nombre");
-                string apellido = PedirString("Ingrese apellido");
-                string mail = PedirString("Ingrese mail");
-                string contrasenia = PedirString("Ingrese contrasenia");
-                Usuario usuario = new Cliente(saldo, nombre, apellido, mail, contrasenia);
-
-                _sistema.AgregarUsuario(usuario);
-            }
-            catch (Exception e)
-            {
-                MostrarError(e.Message);
-            }
+            string lower = texto.ToLower();
+            return lower;
         }
 
-        private static void ListarClientes()
-        {
-            List<Usuario> usuarios = _sistema.Usuarios;
-            if (usuarios.Count == 0)
-            {
-                Console.WriteLine("No hay clientes disponibles");
-            }
-            else
-            {
-                foreach (Usuario item in usuarios)
-                {
-                    Cliente cliente = item as Cliente;
-                    if (cliente != null)
-                    {
-                        Console.WriteLine($"{item.Nombre}");
-                    }
-                }
-            }
-        }
 
 
 

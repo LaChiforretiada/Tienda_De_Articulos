@@ -44,7 +44,7 @@ namespace Dominio
             {
                 throw new Exception($"El usuario con el mail seleccionado {usuario.Mail} ya existe");
             }
-            usuario.ValidarUsuario();
+            usuario.Validar();
             _usuarios.Add(usuario);
         }
 
@@ -53,8 +53,53 @@ namespace Dominio
             {
                 throw new Exception("No se recibieron valores");
             }
-            articulo.ValidarArticulo();
+            articulo.Validar();
             _articulos.Add(articulo);
+        }
+
+        public void AgregarPublicacion(Publicacion publicacion)
+        {
+            if(publicacion == null)
+            {
+                throw new Exception("No se recibieron valores");
+            }
+            publicacion.Validar();
+            _publicaciones.Add(publicacion);    
+        }
+
+
+        public Articulo ObtenerArticulo(string nombre)
+        {
+            foreach (Articulo unArticulo in _articulos)
+            {
+                if(unArticulo.Nombre == nombre)
+                {
+                    return unArticulo;
+                }
+            }
+            return null;
+        }
+
+        public void AgregarArticuloAPublicacion(string nombre, Articulo articulo)
+        {
+            Publicacion unaP = ObtenerPublicacion(nombre);
+            if(unaP == null)
+            {
+                throw new Exception($"La publicacion {nombre} no existe");
+            }
+            unaP.AgregarArticulo(articulo);
+        }
+
+        public Publicacion ObtenerPublicacion(string nombre)
+        {
+            foreach (Publicacion unaPublicacion in _publicaciones)
+            {
+                if(unaPublicacion.Nombre == nombre)
+                {
+                    return unaPublicacion;
+                }
+            }
+            return null;
         }
 
         public Usuario ObtenerUsuario(string email)
