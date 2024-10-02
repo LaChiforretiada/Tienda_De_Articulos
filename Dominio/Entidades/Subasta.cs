@@ -13,8 +13,8 @@
             }
         }
 
-        public Subasta(string nombre, string estado, DateTime fecha, Cliente cliente, Administrador administrador)
-        : base(nombre, estado, fecha, cliente, administrador)
+        public Subasta(string nombre, DateTime fechaPublicacion)
+        : base(nombre, fechaPublicacion)
         {
 
 
