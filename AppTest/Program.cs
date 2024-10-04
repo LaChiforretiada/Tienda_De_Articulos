@@ -24,6 +24,8 @@ namespace AppTest
                     "7- Agregar Subasta\n" +
                     "8- Listar Publicacion\n" +
                     "9- Listar Publicacion por fechas\n" +
+                    "10- Agregar Oferta\n" +
+                    "11- Precargar Datos\n" +
                     "0- Salir");
                 switch (opcion)
                 {
@@ -52,7 +54,13 @@ namespace AppTest
                         ListarPublicaciones();
                         break;
                     case 9:
-                        ListarPublicacionesPorFecha(new DateTime(2024,10,14), new DateTime(2024, 12, 1));
+                        ListarPublicacionesPorFecha(new DateTime(2024, 10, 14), new DateTime(2024, 12, 1));
+                        break;
+                    case 10:
+                        AgregarOferta();
+                        break;
+                    case 11:
+                        PrecargarDatos();
                         break;
                     default:
                         break;
@@ -61,14 +69,55 @@ namespace AppTest
             while (opcion != 0);
         }
 
+        private static void PrecargarDatos()
+        {
+            try
+            {
+                _sistema.PrecargarDatos();
+            }
+            catch (Exception e)
+            {
+                MostrarError(e.Message);
+            }
+        }
+
+
+        private static void AgregarOferta()
+        {
+            try
+            {
+                MostrarTitulo("Agregar Oferta");
+                string mail = PedirString("Ingrese mail Usuario");
+                Usuario unUsuario = _sistema.ObtenerUsuario(mail);
+                string subasta = PedirString("Ingrese nombre Subasta");
+                if (unUsuario == null) 
+                {
+                    MostrarError("No existe usuario");
+                }
+                int monto = PedirNumero("Ingrese monto");
+                Oferta unaOferta = new Oferta(mail, monto, new DateTime(2024, 11, 12));
+                _sistema.AgregarOfertaASubasta(mail,subasta, unaOferta);
+            }
+            catch (Exception e)
+            {
+
+                MostrarError(e.Message);
+            }
+        }
+
         private static void AgregarVenta()
         {
             try
             {
                 MostrarTitulo("Agregar Venta");
                 string nombre = PedirString("Ingrese nombre de la venta");
+                List<Articulo> aux = PedirArticulos();
+                if(aux.Count != 0)
+                {
                 Publicacion unaVenta = new Venta(nombre, new DateTime(2024, 11, 20), true);
                 _sistema.AgregarPublicacion(unaVenta);
+                _sistema.AgregarArticulosAPublicacion(unaVenta, aux);
+                }     
             }
             catch (Exception e)
             {
@@ -82,30 +131,55 @@ namespace AppTest
             {
                 MostrarTitulo("Agregar Subasta");
                 string nombre = PedirString("Ingrese nombre de la subasta");
+                List<Articulo> aux = PedirArticulos();
+                if (aux.Count != 0) 
+                {
                 Publicacion unaSubasta = new Subasta(nombre, new DateTime(2024, 10, 20));
                 _sistema.AgregarPublicacion(unaSubasta);
+                _sistema.AgregarArticulosAPublicacion(unaSubasta, aux);
+                }
             }
             catch (Exception e)
             {
                 MostrarError(e.Message);
             }
         }
-
-        private static void AgregarArticuloPublicacion()
+        private static List<Articulo> PedirArticulos()
         {
+                List<Articulo> aux = new List<Articulo>();
             try
             {
-                MostrarTitulo("Agregar Articulo");
-                
-
-
+                bool bandera = true;
+                while (bandera)
+                {
+                    string nombreArticulo = PedirString("Ingrese nombre del articulo");
+                    Articulo unA = _sistema.ObtenerArticulo(nombreArticulo);
+                    if (unA == null)
+                    {
+                        MostrarError("No existe el articulo");
+               
+                    }
+                    else
+                    {
+                        aux.Add(unA);
+                    }
+                    bandera = Seguir("¿Desea agregar otro artículo? (s/n)");
+                }
             }
             catch (Exception e)
             {
+
                 MostrarError(e.Message);
             }
+                return aux;
         }
 
+        private static bool Seguir(string mensaje)
+        {
+            Console.WriteLine(mensaje);
+            string respuesta = Console.ReadLine()?.ToLower();
+            return respuesta == "s";
+        }
         private static void ListarPublicaciones()
         {
             MostrarTitulo("Publicaciones");
@@ -124,13 +198,13 @@ namespace AppTest
         {
             MostrarTitulo("Publicaciones");
             List<Publicacion> publicaciones = _sistema.Publicaciones;
-            if(publicaciones.Count == 0)
+            if (publicaciones.Count == 0)
             {
                 MostrarError("No hay publicaciones disponibles");
             }
             foreach (Publicacion unaP in publicaciones)
             {
-                if(unaP.FechaPublicacion >= fechaInicio && unaP.FechaPublicacion <= fechaFinal)
+                if (unaP.FechaPublicacion >= fechaInicio && unaP.FechaPublicacion <= fechaFinal)
                 {
                     Console.WriteLine($" Id:{unaP.Id} \n Nombre: {unaP.Nombre} \n Estado: {unaP.Estado} \n Fecha: {unaP.FechaPublicacion}");
                 }
@@ -145,21 +219,24 @@ namespace AppTest
         {
             string categoria = PedirString("Ingrese categoria");
             List<Articulo> articulos = _sistema.Articulos;
-            if(articulos.Count == 0) 
+            if (articulos.Count == 0)
             {
                 MostrarError("No hay articulos disponibles");
-            }   
+            }
+            bool verificar = false;
             foreach (Articulo unArticulo in articulos)
             {
                 if (TextoIgualado(categoria) == unArticulo.Categoria)
                 {
+                    verificar = true;
                     Console.WriteLine($"{unArticulo.Nombre}");
                 }
-                else
-                {
-                    MostrarError("No hay articulos de esa categoria");
-                }
             }
+            if (verificar == false)
+            {
+                MostrarError("No hay articulos de esa categoria");
+            }
+
         }
 
         private static void AgregarArticulo()

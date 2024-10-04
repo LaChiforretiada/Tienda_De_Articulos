@@ -70,6 +70,8 @@
             _articulos.Add(articulo);
         }
 
+        public virtual void AgregarOferta(Oferta oferta) { }
+
 
         public override string ToString()
         {
@@ -95,6 +97,13 @@
             }
             return respuesta;
         }
+
+        public override bool Equals(object? obj)
+        {
+            Publicacion publicacion = obj as Publicacion;
+            return publicacion != null && Nombre == publicacion.Nombre;
+        }
+
 
     }
 }

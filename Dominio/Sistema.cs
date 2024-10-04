@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades;
+using System.Net.Mail;
 
 namespace Dominio
 {
@@ -34,6 +35,56 @@ namespace Dominio
             }
         }
 
+        public Sistema()
+        {
+            //PrecargarDatos();
+        }
+
+        public void PrecargarDatos()
+        {
+            PrecargarArticulos();
+            PrecargarUsuarios();
+            PrecargarPublicaciones();
+        }
+
+
+        private void PrecargarUsuarios()
+        {
+            Usuario unUsuario = null;
+
+            unUsuario = new Cliente(4000, "Lucas", "Sosa", "lucassmj@", "Lukitas1");
+            AgregarUsuario(unUsuario);
+        }
+
+        private void PrecargarArticulos()
+        {
+            Articulo unArticulo = null;
+
+            unArticulo = new Articulo("pelota", "deporte", 504);
+            AgregarArticulo(unArticulo);
+
+            unArticulo = new Articulo("auto", "juguete", 504);
+            AgregarArticulo(unArticulo);
+
+            unArticulo = new Articulo("gorra", "deporte", 504);
+            AgregarArticulo(unArticulo);
+
+            unArticulo = new Articulo("campera", "deporte", 504);
+            AgregarArticulo(unArticulo);
+        }
+
+        private void PrecargarPublicaciones()
+        {
+            Publicacion unaPublicacion = null;
+
+            unaPublicacion = new Venta("para jugar tenis", new DateTime(2024, 11, 1), true);
+            AgregarPublicacion(unaPublicacion);
+            List<Articulo> lis = new List<Articulo> { ObtenerArticulo("pelota"), ObtenerArticulo("gorra"), ObtenerArticulo("campera") };
+            AgregarArticulosAPublicacion(unaPublicacion, lis);
+        }
+
+
+        //Metodos Agregar
         public void AgregarUsuario(Usuario usuario)
         {
             if (usuario == null)
@@ -48,7 +99,8 @@ namespace Dominio
             _usuarios.Add(usuario);
         }
 
-        public void AgregarArticulo(Articulo articulo) { 
+        public void AgregarArticulo(Articulo articulo)
+        {
             if (articulo == null)
             {
                 throw new Exception("No se recibieron valores");
@@ -59,20 +111,25 @@ namespace Dominio
 
         public void AgregarPublicacion(Publicacion publicacion)
         {
-            if(publicacion == null)
+            if (publicacion == null)
             {
                 throw new Exception("No se recibieron valores");
             }
+            if (_publicaciones.Contains(publicacion))
+            {
+                throw new Exception("Ya existe esa publicacion");
+            }
             publicacion.Validar();
-            _publicaciones.Add(publicacion);    
+            _publicaciones.Add(publicacion);
         }
+
 
 
         public Articulo ObtenerArticulo(string nombre)
         {
             foreach (Articulo unArticulo in _articulos)
             {
-                if(unArticulo.Nombre == nombre)
+                if (unArticulo.Nombre == nombre)
                 {
                     return unArticulo;
                 }
@@ -80,21 +137,39 @@ namespace Dominio
             return null;
         }
 
-        public void AgregarArticuloAPublicacion(string nombre, Articulo articulo)
+        public void AgregarArticulosAPublicacion(Publicacion publicacion, List<Articulo> articulos)
         {
-            Publicacion unaP = ObtenerPublicacion(nombre);
-            if(unaP == null)
+            
+            if (publicacion == null)
             {
-                throw new Exception($"La publicacion {nombre} no existe");
+                throw new Exception($"La publicacion no existe");
             }
-            unaP.AgregarArticulo(articulo);
+            foreach (Articulo item in articulos)
+            {
+                publicacion.AgregarArticulo(item);
+            }
+        }
+
+        public void AgregarOfertaASubasta(string mail,string subasta, Oferta oferta)
+        {
+            Usuario unU = ObtenerUsuario(mail);
+            Publicacion subas = ObtenerPublicacion(subasta);
+            if(subas == null)
+            {
+                throw new Exception("No existe esa subasta");
+            }
+            if (unU == null)
+            {
+                throw new Exception("No existe Usuario");
+            }
+            subas.AgregarOferta(oferta);
         }
 
         public Publicacion ObtenerPublicacion(string nombre)
         {
             foreach (Publicacion unaPublicacion in _publicaciones)
             {
-                if(unaPublicacion.Nombre == nombre)
+                if (unaPublicacion.Nombre == nombre)
                 {
                     return unaPublicacion;
                 }
@@ -113,8 +188,8 @@ namespace Dominio
             }
             return null;
         }
-        
-       
+
+
 
     }
 }
