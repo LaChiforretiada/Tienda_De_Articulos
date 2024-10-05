@@ -54,7 +54,7 @@ namespace AppTest
                         ListarPublicaciones();
                         break;
                     case 9:
-                        ListarPublicacionesPorFecha(new DateTime(2024, 10, 14), new DateTime(2024, 12, 1));
+                        ListarPublicacionesPorFecha();
                         break;
                     case 10:
                         AgregarOferta();
@@ -194,7 +194,7 @@ namespace AppTest
             }
         }
 
-        private static void ListarPublicacionesPorFecha(DateTime fechaInicio, DateTime fechaFinal)
+        private static void ListarPublicacionesPorFecha()
         {
             MostrarTitulo("Publicaciones");
             List<Publicacion> publicaciones = _sistema.Publicaciones;
@@ -202,6 +202,10 @@ namespace AppTest
             {
                 MostrarError("No hay publicaciones disponibles");
             }
+            Console.Write("Ingrese la fecha de inicio (formato: aaaa-mm-dd): ");
+            DateTime fechaInicio = DateTime.Parse(Console.ReadLine());
+            Console.Write("Ingrese la fecha de fin (formato: aaaa-mm-dd): ");
+            DateTime fechaFinal = DateTime.Parse(Console.ReadLine());
             foreach (Publicacion unaP in publicaciones)
             {
                 if (unaP.FechaPublicacion >= fechaInicio && unaP.FechaPublicacion <= fechaFinal)
