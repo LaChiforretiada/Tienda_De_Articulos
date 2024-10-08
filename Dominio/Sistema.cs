@@ -90,9 +90,22 @@ namespace Dominio
             unUsuario = new Administrador("Admin2", "Rodríguez", "admin2@mail.com", "AdminPass2");
             AgregarUsuario(unUsuario);
 
-            //--------------------------------------------------------------------------------
-            // PRECARGAS CON ERROR
-            //------------------------------------------------------------------------------
+            //--------------------------------------------------------------------------------//
+            // PRECARGAS DE USUARIOS ERRONEAS
+
+            //Mensaje de Error - Saldo tiene que ser mayor a 0
+            //unUsuario = new Cliente(0, "Lucas", "Sosa", "lucassmj@mail.com", "Lukitas1");
+            //AgregarUsuario(unUsuario);
+
+            //Mensaje de Error - El formato de mail es incorrecto
+            //unUsuario = new Cliente(440, "Lucas", "Sosa", "lucassmjmail.com", "Lukitas1");
+            //AgregarUsuario(unUsuario);
+
+            //Mensaje de Error - La contrasenia debe contener al menos una Mayuscula
+            //unUsuario = new Cliente(440, "Lucas", "Sosa", "lucassmjmail.com", "lukitas1");
+            //AgregarUsuario(unUsuario);
+
+            //------------------------------------------------------------------------------//
 
 
         }
@@ -244,6 +257,21 @@ namespace Dominio
 
             unArticulo = new Articulo("martillo", "herramienta", 2000);
             AgregarArticulo(unArticulo);
+
+
+            //--------------------------------------------------------------------------------//           
+            // PRECARGAS DE ARTICULOS ERRONEAS
+
+            //Mensaje de Error - Precio tiene que ser mayor a 0
+            //unArticulo = new Articulo("pelota", "deporte", 0);
+            //AgregarArticulo(unArticulo);
+
+            //Mensaje de Error - No se ingresaron valores
+            //unArticulo = new Articulo("", "deporte", 0);
+            //AgregarArticulo(unArticulo);
+
+            //--------------------------------------------------------------------------------//
+
         }
 
         private void PrecargarPublicaciones()
@@ -335,7 +363,28 @@ namespace Dominio
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("coche"), ObtenerArticulo("moto") });
 
+            //--------------------------------------------------------------------------------//
+            // PRECARGAS DE PUBLICACIONES ERRONEAS
 
+            //Mensaje de Error - Nombre debe contener caracteres
+            //unaPublicacion = new Venta("", new DateTime(2024, 11, 1), true);
+            //AgregarPublicacion(unaPublicacion);
+            //List<Articulo> articulosVenta1 = new List<Articulo> { ObtenerArticulo("pelota"), ObtenerArticulo("raqueta"), ObtenerArticulo("zapatillas") };
+            //AgregarArticulosAPublicacion(unaPublicacion, articulosVenta1);
+
+            //Mensaje de Error - No se puede publicar en fecha anteriores.
+            //unaPublicacion = new Venta("Subasta de vehículos de lujo", new DateTime(2023, 11, 1), true);
+            //AgregarPublicacion(unaPublicacion);
+            //List<Articulo> articulosVenta1 = new List<Articulo> { ObtenerArticulo("pelota"), ObtenerArticulo("raqueta"), ObtenerArticulo("zapatillas") };
+            //AgregarArticulosAPublicacion(unaPublicacion, articulosVenta1);
+
+            //Mensaje de Error - Publicacion debe contener articulos
+            //unaPublicacion = new Venta("Subasta de vehículos de lujo", new DateTime(2023, 11, 1), true);
+            //AgregarPublicacion(unaPublicacion);
+            //List<Articulo> articulosVenta1 = new List<Articulo> {};
+            //AgregarArticulosAPublicacion(unaPublicacion, articulosVenta1);
+
+            //------------------------------------------------------------------------------//
         }
 
         private void PrecargarOfertas()
@@ -354,6 +403,20 @@ namespace Dominio
 
             unaOferta = new Oferta(mailSegundoCliente, 600, DateTime.Now);
             segundaSubasta.AgregarOferta(unaOferta);
+
+            //--------------------------------------------------------------------------------//
+            // PRECARGAS DE OFERTAS ERRONEAS
+
+            //Mensaje de Error - El monto debe ser mayor a 0
+            //Publicacion terceraSubasta = ObtenerPublicacion("subasta juguetes");
+            //Usuario terceraCliente = ObtenerUsuario("lucassmj@mail.com");
+            //string mailTercerCliente = primerCliente.Mail;
+
+
+            //unaOferta = new Oferta(mailSegundoCliente, 0, DateTime.Now);
+            //terceraSubasta.AgregarOferta(unaOferta);
+
+            //------------------------------------------------------------------------------//
         }
 
         //Metodos Agregar

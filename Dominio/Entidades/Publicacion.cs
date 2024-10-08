@@ -40,6 +40,7 @@
         {
             ValidarNombre();
             ValidarFecha();
+            ValidarArticulo();
         }
 
         private void ValidarNombre()
@@ -59,7 +60,13 @@
             }
         }
 
-
+        public void ValidarArticulo()
+        {
+            if (Articulos.Count == 0)
+            {
+                throw new Exception("Publicacion debe contener articulos");
+            }
+        }
         public void AgregarArticulo(Articulo articulo)
         {
             if(articulo == null)
