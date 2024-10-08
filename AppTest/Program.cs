@@ -287,11 +287,11 @@ namespace AppTest
             try
             {
                 MostrarTitulo("Agregar Usuario");
-                decimal saldo = 4000;
                 string nombre = PedirString("Ingrese nombre");
                 string apellido = PedirString("Ingrese apellido");
                 string mail = PedirString("Ingrese mail");
                 string contrasenia = PedirString("Ingrese contrasenia");
+                decimal saldo = PedirNumero("Ingrese Saldo");
                 Usuario usuario = new Cliente(saldo, nombre, apellido, mail, contrasenia);
 
                 _sistema.AgregarUsuario(usuario);

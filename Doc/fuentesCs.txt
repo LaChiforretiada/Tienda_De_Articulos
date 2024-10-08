@@ -1,4 +1,8 @@
-﻿using Dominio.Entidades;
+﻿***********************************
+Archivo: Sistema.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Sistema.cs
+***********************************
+using Dominio.Entidades;
 using System.Net.Mail;
 
 namespace Dominio
@@ -89,12 +93,6 @@ namespace Dominio
 
             unUsuario = new Administrador("Admin2", "Rodríguez", "admin2@mail.com", "AdminPass2");
             AgregarUsuario(unUsuario);
-
-            //--------------------------------------------------------------------------------
-            // PRECARGAS CON ERROR
-            //------------------------------------------------------------------------------
-
-
         }
 
         private void PrecargarArticulos()
@@ -459,6 +457,527 @@ namespace Dominio
                 }
             }
             return null;
+        }
+
+
+
+    }
+}
+
+***********************************
+Archivo: Administrador.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Entidades\Administrador.cs
+***********************************
+namespace Dominio.Entidades
+{
+    public class Administrador : Usuario
+    {
+        public Administrador(string nombre, string apellido, string mail, string contrasenia) : base (nombre, apellido, mail, contrasenia)
+        {
+        }
+
+        public override void Validar()
+        {
+            base.Validar();
+        }
+
+        public override string ToString()
+        {
+            string respuesta = base.ToString();
+            return respuesta;
+        }
+   
+        
+    
+    
+    }
+}
+
+***********************************
+Archivo: Articulo.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Entidades\Articulo.cs
+***********************************
+
+namespace Dominio.Entidades
+{
+    public class Articulo
+    {
+        public int Id { get; set; }
+
+        public string Nombre { get; set; }
+
+        public string Categoria { get; set; }
+
+        public int Precio { get; set; }
+
+        private static int _ultimoId;
+
+        public Articulo(string nombre, string categoria, int precio)
+        {
+            Id = _ultimoId++;
+            Nombre = nombre;
+            Categoria = categoria;
+            Precio = precio;
+        }
+
+        public void Validar()
+        {
+            ValidarNombre();
+            ValidarCategoria();
+            ValidarPrecio();
+        }
+
+        private void ValidarPrecio()
+        {
+            if (Precio <= 0) 
+            {
+                throw new Exception("Precio debe ser mayor a 0");
+            }
+        }
+
+        private void ValidarCategoria()
+        {
+            if (string.IsNullOrEmpty(Categoria))
+            {
+                throw new Exception("No se recibieron valores");
+            }
+        }
+
+        private void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre))
+            {
+                throw new Exception("No se recibieron valores");
+            }
+
+        }
+
+        public override string ToString()
+        {
+            string respuesta = string.Empty;
+
+            respuesta += $"Id: {Id} \n";
+            respuesta += $"Nombre: {Nombre} \n";
+            respuesta += $"Categoria: {Categoria} \n";
+            respuesta += $"Precio: {Precio} \n";
+            return respuesta;
+        }
+    }
+}
+
+***********************************
+Archivo: Cliente.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Entidades\Cliente.cs
+***********************************
+namespace Dominio.Entidades
+{
+    public class Cliente : Usuario
+    {
+        public decimal Saldo { get; set; }
+
+        public Cliente(decimal saldo, string nombre, string apellido, string mail, string contrasenia) : base(nombre, apellido, mail, contrasenia)
+        {
+            Saldo = saldo;
+        }
+
+        public override void Validar()
+        {
+            base.Validar();
+            ValidarSaldo();
+        }
+
+        private void ValidarSaldo()
+        {
+            if (Saldo < 0)
+            {
+                throw new Exception("No puedes tener saldo negativo");
+            } 
+        }
+        public override string ToString()
+        {
+            string respuesta = base.ToString();
+            respuesta += $"Saldo: {Saldo} \n";
+            return respuesta;
+        }
+    }
+}
+
+***********************************
+Archivo: Oferta.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Entidades\Oferta.cs
+***********************************
+namespace Dominio.Entidades
+{
+    public class Oferta 
+    {
+        public int Id { get; set; }
+        public string UsuarioMail { get; set; }
+        public int Monto { get; set; }
+        public DateTime Fecha { get; set; }
+        
+        private static int _ultimoId;
+
+        public Oferta(string usuario, int monto, DateTime fecha)
+        {
+            Id = _ultimoId++;
+            UsuarioMail = usuario;
+            Monto = monto;
+            Fecha = fecha;
+        }
+
+        public void Validar()
+        {
+            ValidarMonto();
+        }
+
+        private void ValidarMonto()
+        {
+            if (Monto <= 0)
+            {
+                throw new Exception("El monto debe ser mayor a 0");
+            }
+        }
+    }
+}
+
+***********************************
+Archivo: Publicacion.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Entidades\Publicacion.cs
+***********************************
+namespace Dominio.Entidades
+{
+    public abstract class Publicacion
+    {
+        private List<Articulo> _articulos = new List<Articulo>();
+
+        public List<Articulo> Articulos
+        {
+            get
+            {
+                return _articulos;
+            }
+        }
+
+        public int Id { get; set; }
+
+        public string Nombre { get; set; }
+
+        public string Estado { get; set; }
+
+        public DateTime FechaPublicacion { get; set; }
+
+        public DateTime FechaFinalizacion { get; set; }
+        public Cliente Cliente { get; set; }
+
+        public Administrador Administrador { get; set; }
+
+        private static int _ultimoId;
+
+
+        public Publicacion(string nombre, DateTime fechaPublicacion)
+        {
+            Id = _ultimoId++;
+            Nombre = nombre;
+            Estado = "ABIERTA";
+            FechaPublicacion = fechaPublicacion;
+        }
+
+        public virtual void Validar()
+        {
+            ValidarNombre();
+            ValidarFecha();
+        }
+
+        private void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre))
+            {
+                throw new Exception("Nombre debe contener caracteres");
+            }
+        }
+
+        private void ValidarFecha()
+        {
+            DateTime fechaHoy = DateTime.Now;
+            if (FechaPublicacion < fechaHoy)
+            {
+                throw new Exception("No se puede publicar en fecha anteriroes.");
+            }
+        }
+
+
+        public void AgregarArticulo(Articulo articulo)
+        {
+            if(articulo == null)
+            {
+                throw new Exception("No se recibieron valores");
+            }
+            articulo.Validar();
+            _articulos.Add(articulo);
+        }
+
+        public virtual void AgregarOferta(Oferta oferta) { }
+
+
+        public override string ToString()
+        {
+            string respuesta = string.Empty;
+
+            respuesta += $"Id: {Id} \n";
+            respuesta += $"Nombre: {Nombre} \n";
+            respuesta += $"Estado: {Estado} \n";
+            respuesta += $"FechaPublicacion: {FechaPublicacion} \n";
+            respuesta += $"FechaFinalizacion: {FechaFinalizacion} \n";
+            //respuesta += $"Cliente: {Cliente.Nombre} \n";
+
+            foreach (Articulo item in _articulos)
+            {
+                if(_articulos.Count <= 0)
+                {
+                    respuesta += $"No contiene articulos";
+                }
+                else
+                {
+                    respuesta += $"Articulos -->{item.Nombre}\n";
+                }
+            }
+            return respuesta;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            Publicacion publicacion = obj as Publicacion;
+            return publicacion != null && Nombre == publicacion.Nombre;
+        }
+
+
+    }
+}
+
+***********************************
+Archivo: Subasta.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Entidades\Subasta.cs
+***********************************
+namespace Dominio.Entidades
+{
+    public class Subasta : Publicacion
+    {
+
+       private List<Oferta> _ofertas = new List<Oferta>();
+
+        public List<Oferta> Ofertas
+        {
+            get
+            {
+                return _ofertas;
+            }
+        }
+
+        public Subasta(string nombre, DateTime fechaPublicacion)
+        : base(nombre, fechaPublicacion)
+        {
+        }
+
+        public override void Validar()
+        {
+            base.Validar();
+        }
+
+        public override void AgregarOferta(Oferta oferta)
+        {
+            if (oferta == null) 
+            {
+                throw new Exception("No se recibieron valores");
+            }
+            oferta.Validar();
+            _ofertas.Add(oferta);
+        }
+
+
+        public override string ToString()
+        {
+            string respuesta = base.ToString();
+
+            foreach (Oferta item in _ofertas)
+            {
+                if (_ofertas.Count <= 0)
+                {
+                    respuesta += $"No contiene articulos";
+                }
+                else
+                {
+                    respuesta += $"Ofertas --> {item.UsuarioMail} Monto: {item.Monto}\n";
+                }
+            }
+            return respuesta;
+           
+        }
+    }
+}
+
+***********************************
+Archivo: Usuario.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Entidades\Usuario.cs
+***********************************
+
+
+namespace Dominio.Entidades
+{
+    public abstract class Usuario
+    {
+        public int Id { get; set; }
+
+        public string Nombre { get; set; }
+
+        public string Apellido { get; set; }
+
+        public string Mail { get; set; }
+
+        public string Contrasenia { get; set; }
+
+        private static int _ultimoId;
+
+        public Usuario(string nombre, string apellido, string mail, string contrasenia)
+        {
+            Id = _ultimoId++;
+            Nombre = nombre;
+            Apellido = apellido;
+            Mail = mail;
+            Contrasenia = contrasenia;
+        }
+
+        public virtual void Validar()
+        {
+            ValidarNombre();
+            ValidarApellido();
+            ValidarContrasenia();
+            ValidarMailVacio();
+        }
+
+        private void ValidarMailVacio()       
+        {
+            if (!string.IsNullOrEmpty(Mail))
+            {
+                ValidarMailFormato(Mail);
+            }
+            else
+            {
+                throw new Exception("Mail no puede ser vacio");
+            }
+        }
+
+        private void ValidarMailFormato(string mail)
+        {
+            bool valid = false;
+            foreach (char c in mail)
+            {
+                if (c == '@')
+                {
+                    valid = true;
+                }
+            }
+            if (valid == false)
+            {
+                throw new Exception("El formato del mail es incorrecto");
+            }
+        }
+
+        private void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre)) 
+            {
+                throw new Exception("Nombre debe contener caracteres");
+            }
+        }
+        private void ValidarApellido()
+        {
+            if (string.IsNullOrEmpty(Apellido))
+            {
+                throw new Exception("Apellido debe contener caracteres");
+            }
+        }
+
+        private void ValidarContrasenia()
+        {
+            if (!string.IsNullOrEmpty(Contrasenia))
+            {
+                ValidarFormato(Contrasenia);
+            }
+            else
+            {
+                throw new Exception("Contrasenia debe contener caracteres");
+            }
+        }
+
+        private void ValidarFormato(string contra)
+        {
+            bool valid = false;
+            for (int i = 0; i < contra.Length; i++)
+            {
+                if (char.IsUpper(contra[i]))
+                {
+                valid = true;
+                }
+            }
+            if (valid == false)
+            {
+                throw new Exception("La contrasenia debe contener al menos una Mayuscula");
+            }
+        }
+
+
+        public override string ToString() 
+        { 
+          string respuesta = string.Empty;
+
+            respuesta += $"Id: {Id} \n";
+            respuesta += $"Nombre: {Nombre} \n";
+            respuesta += $"Apellido: {Apellido} \n";
+            respuesta += $"Mail: {Mail} \n";
+            //respuesta += $"Contrasenia: {Contrasenia} \n";
+            return respuesta;
+        }
+
+        public override bool Equals(object? obj) 
+        { 
+            Usuario usuario = obj as Usuario;
+            return usuario != null && Mail == usuario.Mail;
+
+        }
+    }
+}
+
+***********************************
+Archivo: Venta.cs
+Carpeta: C:\Users\Administrador\source\repos\Tienda_De_Articulos\Dominio\Entidades\Venta.cs
+***********************************
+namespace Dominio.Entidades
+{
+    public class Venta : Publicacion
+    {
+        public bool OfertaRelampago { get; set; }
+ 
+        public Venta(string nombre, DateTime fechaPublicacion, bool ofertaRelampago)
+          : base(nombre, fechaPublicacion)
+        {
+            OfertaRelampago = ofertaRelampago;
+        }
+
+        public override void Validar()
+        {
+            base.Validar();
+        }
+
+        //private void ValidarOferta()
+        //{
+        //    if (OfertaRelampago) { }
+        //}
+
+        public override string ToString()
+        {
+            string respuesta = base.ToString();
+            respuesta += $"Es Oferta? {OfertaRelampago} \n";
+            return respuesta;
         }
 
 

@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTest", "AppTest\AppTest.csproj", "{77F811A3-4F58-4C61-A19A-F8C2A2E7DC89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppTest", "AppTest\AppTest.csproj", "{77F811A3-4F58-4C61-A19A-F8C2A2E7DC89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.csproj", "{D0E17A14-D14B-4364-B1D2-0BFD1A059E40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "Dominio\Dominio.csproj", "{D0E17A14-D14B-4364-B1D2-0BFD1A059E40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Doc", "Doc\Doc.csproj", "{93DBF94C-76FD-4C39-A584-663B69DF3EB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D0E17A14-D14B-4364-B1D2-0BFD1A059E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0E17A14-D14B-4364-B1D2-0BFD1A059E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0E17A14-D14B-4364-B1D2-0BFD1A059E40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93DBF94C-76FD-4C39-A584-663B69DF3EB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93DBF94C-76FD-4C39-A584-663B69DF3EB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93DBF94C-76FD-4C39-A584-663B69DF3EB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93DBF94C-76FD-4C39-A584-663B69DF3EB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
