@@ -524,7 +524,22 @@ namespace Dominio
             return null;
         }
 
+        public List<Cliente> UsuariosClientes()
+        {
+            List<Cliente> aux = new List<Cliente>();
 
+            foreach (Usuario unUsuario in _usuarios)
+            {
+                // aplico downCast a la lista
+                if (unUsuario is Cliente)
+                {
+                    Cliente unCliente = (Cliente)unUsuario;
+                    aux.Add(unCliente);
+                }
+            }
+
+            return aux;
+        }
 
     }
 }

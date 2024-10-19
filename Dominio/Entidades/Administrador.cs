@@ -2,7 +2,10 @@
 {
     public class Administrador : Usuario
     {
-        public Administrador(string nombre, string apellido, string mail, string contrasenia) : base (nombre, apellido, mail, contrasenia)
+        public Administrador(string nombre,
+                             string apellido,
+                             string mail,
+                             string contrasenia) : base(nombre, apellido, mail, contrasenia)
         {
         }
 

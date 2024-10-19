@@ -303,20 +303,16 @@ namespace AppTest
         }
         private static void ListarClientes()
         {
-            List<Usuario> usuarios = _sistema.Usuarios;
-            if (usuarios.Count == 0)
+            List<Cliente> clientes = _sistema.UsuariosClientes();
+            if (clientes.Count == 0)
             {
                 Console.WriteLine("No hay clientes disponibles");
             }
             else
             {
-                foreach (Usuario item in usuarios)
+                foreach (Cliente item in clientes)
                 {
-                    Cliente cliente = item as Cliente;
-                    if (cliente != null)
-                    {
-                        Console.WriteLine($"{item}");
-                    }
+                    Console.WriteLine(item);
                 }
             }
         }
