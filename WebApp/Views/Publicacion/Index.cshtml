@@ -1,0 +1,44 @@
+﻿@using Dominio.Entidades;
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1 class="text-center">LISTA DE PUBLICACIONES</h1>
+
+<div>
+<form action="/publicacion/FiltroPublicaciones">
+
+	<select name="idPubli">
+		@foreach (Publicacion item in ViewBag.Publicaciones)
+		{
+			<option value="@item.Id">@item.Nombre</option>
+		}
+	</select>
+
+	<button type="submit">Buscar</button>
+</form>
+</div>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Nombre</th>
+			<th scope="col">Estado</th>
+			<th scope="col">Articulos</th>
+			<th scope="col">Precio</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (Publicacion item in ViewBag.Publicaciones)
+		{
+			<tr>
+				<td>@item.Nombre</td>
+				<td>@item.Estado</td>
+				<td>@foreach (Articulo unArt in item.Articulos) {@unArt.Nombre <br>} </td>
+				<td> $@item.PrecioPubli()</td>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -28,7 +28,7 @@ namespace WebApp
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Usuario}/{action=Index}/{id?}");
+                pattern: "{controller=Publicacion}/{action=Index}/{id?}");
 
             app.Run();
         }

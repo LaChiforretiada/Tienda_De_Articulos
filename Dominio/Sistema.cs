@@ -7,6 +7,17 @@ namespace Dominio
     //PREGUNTAR SOBRE LA LISTA DE ARTICULOS EN PUBLICACIONES TODO
     public class Sistema
     {
+        private static Sistema instancia;
+
+        public static Sistema Instancia
+        {
+            get
+            {
+                if(instancia == null) instancia = new Sistema();
+                return instancia;   
+            }
+        }
+
         private List<Usuario> _usuarios = new List<Usuario>();
         private List<Articulo> _articulos = new List<Articulo>();
         private List<Publicacion> _publicaciones = new List<Publicacion>();
@@ -35,9 +46,9 @@ namespace Dominio
             }
         }
 
-        public Sistema()
+        private Sistema()
         {
-            //PrecargarDatos();
+            PrecargarDatos();
         }
 
         public void PrecargarDatos()
@@ -512,7 +523,20 @@ namespace Dominio
             return null;
         }
 
-        public Usuario ObtenerUsuario(string email)
+		public Publicacion ObtenerPublicacionPorId(int idP)
+		{
+			foreach (Publicacion unaPublicacion in _publicaciones)
+			{
+				if (unaPublicacion.Id == idP)
+				{
+					return unaPublicacion;
+				}
+			}
+			return null;
+		}
+
+
+		public Usuario ObtenerUsuario(string email)
         {
             foreach (Usuario unUsuario in _usuarios)
             {
