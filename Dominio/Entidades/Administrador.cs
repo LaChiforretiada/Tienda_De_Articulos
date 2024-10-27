@@ -2,11 +2,18 @@
 {
     public class Administrador : Usuario
     {
+        public override string Rol
+        {
+            get { return "Administrador"; }
+        }
         public Administrador(string nombre,
                              string apellido,
                              string mail,
                              string contrasenia) : base(nombre, apellido, mail, contrasenia)
+
+
         {
+
         }
 
         public override void Validar()

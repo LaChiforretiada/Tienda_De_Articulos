@@ -11,6 +11,11 @@ namespace WebApp.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            string mail = HttpContext.Session.GetString("mail");
+            string contra = HttpContext.Session.GetString("contra");
+            string rol = HttpContext.Session.GetString("rol");
+            ViewBag.Rol = rol;
+            ViewBag.Mail = mail;
 			ViewBag.Usuarios = _sistema.Usuarios;
 			return View();
         }
@@ -37,7 +42,7 @@ namespace WebApp.Controllers
 				Usuario usuario = new Cliente(saldo, nombre, apellido, mail, contrasenia);
 				_sistema.AgregarUsuario(usuario);
 				ViewBag.Nombre = nombre;
-                return View("RegistroExitoso"); // Asegúrate de tener una vista RegistroExitoso.cshtml
+                return View("RegistroExitoso");
 			}
 			catch (Exception e)
 			{

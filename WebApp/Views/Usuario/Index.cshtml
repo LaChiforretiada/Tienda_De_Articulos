@@ -1,44 +1,21 @@
 ﻿@using Dominio.Entidades;
-
-@*
-    
-*@
-@{
-}
-
 <h1>Ingreso al sistema</h1>
+<h2>Bienvenido @ViewBag.Mail </h2>
 
-<div class="mt-5">
 
-	<form action="/sistema/IngresoAlSistema">
-		<input type="text" name="mail" placeholder="Ingrese mail" />
-		<input type="text" name="nombre" placeholder="Ingrese contraseña" />
-		<button type="submit" name="action" value="ingresar" class="btn-dark">Ingresar</button>
-	</form>
-</div>
 
-@* <form asp-controller="" asp-action="IrARegistro" method="get">
-	<button type="submit">Ir al Registro</button>
-</form> *@
-<a asp-controller="Usuario" asp-action="IrARegistro" class="btn btn-dark p-1 mt-2">Registrarse</a>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th scope="col">Apellido</th>
-			<th scope="col">Nombre</th>
-			<th scope="col">Mail</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (Usuario item in ViewBag.Usuarios)
-		{
-			<tr>
-				<td>@item.Apellido</td>
-				<td>@item.Nombre</td>
-				<td>@item.Mail</td>
-			</tr>
-		}
-	</tbody>
-</table>
-
+@if (ViewBag.Rol == "Administrador")
+{
+    <h2>Funcionalidades de Administrador</h2>
+    <!-- Contenido específico para el administrador -->
+    <a href="/Admin/ManageUsers">Gestionar Usuarios</a>
+    <a href="/Admin/Reports">Ver Reportes</a>
+}
+else if (ViewBag.Rol == "Cliente")
+{
+    <h2>Funcionalidades de Cliente</h2>
+    <!-- Contenido específico para el cliente -->
+    <a href="/Client/ViewPurchases">Ver Compras</a>
+    <a href="/Client/Profile">Mi Perfil</a>
+}
 

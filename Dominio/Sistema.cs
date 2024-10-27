@@ -1,4 +1,5 @@
 ﻿using Dominio.Entidades;
+using System.Diagnostics.Contracts;
 using System.Net.Mail;
 
 namespace Dominio
@@ -67,31 +68,31 @@ namespace Dominio
             unUsuario = new Cliente(4000, "Lucas", "Sosa", "lucassmj@mail.com", "Lukitas1");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4001, "Ana", "García", "anagarcia@mail.com", "AnaPass");
+            unUsuario = new Cliente(4001, "Ana", "García", "anagarcia@mail.com", "AnaPass1");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4002, "Carlos", "Martínez", "carlosm@mail.com", "CarlosPass");
+            unUsuario = new Cliente(4002, "Carlos", "Martínez", "carlosm@mail.com", "CarlosPass1");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4003, "María", "López", "marialopez@mail.com", "MariaPass");
+            unUsuario = new Cliente(4003, "María", "López", "marialopez@mail.com", "MariaPass1");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4004, "Javier", "Fernández", "javierf@mail.com", "JavierPass");
+            unUsuario = new Cliente(4004, "Javier", "Fernández", "javierf@mail.com", "JavierPass1");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4005, "Lorena", "Pérez", "lorenap@mail.com", "LorenaPass");
+            unUsuario = new Cliente(4005, "Lorena", "Pérez", "lorenap@mail.com", "LorenaPass1");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4006, "Santiago", "Ramírez", "santiagor@mail.com", "SantiagoPass");
+            unUsuario = new Cliente(4006, "Santiago", "Ramírez", "santiagor@mail.com", "SantiagoPass1");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4007, "Valentina", "Sánchez", "valentinas@mail.com", "ValentinaPass");
+            unUsuario = new Cliente(4007, "Valentina", "Sánchez", "valentinas@mail.com", "ValentinaPass5");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4008, "Ignacio", "Castro", "ignacioc@mail.com", "IgnacioPass");
+            unUsuario = new Cliente(4008, "Ignacio", "Castro", "ignacioc@mail.com", "IgnacioPass2");
             AgregarUsuario(unUsuario);
 
-            unUsuario = new Cliente(4009, "Camila", "Morales", "camilam@mail.com", "CamilaPass");
+            unUsuario = new Cliente(4009, "Camila", "Morales", "camilam@mail.com", "CamilaPass3");
             AgregarUsuario(unUsuario);
 
             // Administradores
@@ -547,6 +548,19 @@ namespace Dominio
             }
             return null;
         }
+
+        public Usuario ObtenerUsuarioConContrasenia(string email, string contra)
+        {
+            foreach (Usuario unUsuario in _usuarios)
+            {
+                if (unUsuario.Mail == email && unUsuario.Contrasenia == contra)
+                {
+                    return unUsuario;
+                }
+            }
+            return null;
+        }
+
 
         public List<Cliente> UsuariosClientes()
         {

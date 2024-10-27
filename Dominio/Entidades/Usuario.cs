@@ -14,15 +14,20 @@ namespace Dominio.Entidades
 
         public string Contrasenia { get; set; }
 
+        public virtual string Rol { get; protected set; }
+
         private static int _ultimoId;
+
+        
 
         public Usuario(string nombre, string apellido, string mail, string contrasenia)
         {
-            Id = _ultimoId++;
+            Id = ++_ultimoId;
             Nombre = nombre;
             Apellido = apellido;
             Mail = mail;
             Contrasenia = contrasenia;
+            Rol = "Usuario";
         }
 
         public virtual void Validar()
@@ -78,29 +83,34 @@ namespace Dominio.Entidades
 
         private void ValidarContrasenia()
         {
-            if (!string.IsNullOrEmpty(Contrasenia))
+            if (!string.IsNullOrEmpty(Contrasenia) && Contrasenia.Length >= 8)
             {
                 ValidarFormato(Contrasenia);
             }
             else
             {
-                throw new Exception("Contrasenia debe contener caracteres");
+                throw new Exception("Contrasenia debe contener minimo 8 caracteres");
             }
         }
 
         private void ValidarFormato(string contra)
         {
             bool valid = false;
+            bool valid2 = false;    
             for (int i = 0; i < contra.Length; i++)
             {
                 if (char.IsUpper(contra[i]))
                 {
                 valid = true;
                 }
+                if (char.IsNumber(contra[i]))
+                {
+                valid2 = true;
+                }
             }
-            if (valid == false)
+            if (valid == false || valid2 == false)
             {
-                throw new Exception("La contrasenia debe contener al menos una Mayuscula");
+                throw new Exception("La contrasenia debe contener al menos una Mayuscula o Numero");
             }
         }
 
