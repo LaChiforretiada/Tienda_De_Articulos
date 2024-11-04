@@ -18,7 +18,10 @@ namespace Dominio.Entidades
 
         private static int _ultimoId;
 
-        
+        public Usuario()
+        {
+            Id = ++_ultimoId;
+        }
 
         public Usuario(string nombre, string apellido, string mail, string contrasenia)
         {

@@ -20,6 +20,16 @@
         //    if (OfertaRelampago) { }
         //}
 
+        public override bool EstadoPublicacion()
+        {
+            bool esT = false;
+            if (Estado == "ABIERTA")
+            {
+                esT = true;
+            }
+            return esT;
+        }
+
         public override string ToString()
         {
             string respuesta = base.ToString();

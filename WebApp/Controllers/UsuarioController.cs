@@ -9,11 +9,15 @@ namespace WebApp.Controllers
         private Sistema _sistema = Sistema.Instancia;
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string mensaje)
         {
             string mail = HttpContext.Session.GetString("mail");
             string contra = HttpContext.Session.GetString("contra");
             string rol = HttpContext.Session.GetString("rol");
+            string nombre = HttpContext.Session.GetString("nombre");
+            var saldo = HttpContext.Session.GetInt32("saldo");
+            ViewBag.nombre = nombre;    
+            ViewBag.mensaje = mensaje;
             ViewBag.Rol = rol;
             ViewBag.Mail = mail;
 			ViewBag.Usuarios = _sistema.Usuarios;
@@ -26,29 +30,31 @@ namespace WebApp.Controllers
         }
 
 		[HttpGet]
-		public IActionResult IrARegistro()
+		public IActionResult IrARegistro(string mensaje)
         {
 			ViewBag.Usuarios = _sistema.Usuarios;
 			// Redirige a la vista Registro
-			return View("IrARegistro");
+			return View(new Cliente());
         }
 
 		[HttpPost]
-		public IActionResult TomarDatos(string nombre, string apellido, string mail, string contrasenia, decimal saldo)
+		public IActionResult IrARegistro(Cliente cliente)
         {
 			ViewBag.Usuarios = _sistema.Usuarios;
 			try
 			{
-				Usuario usuario = new Cliente(saldo, nombre, apellido, mail, contrasenia);
-				_sistema.AgregarUsuario(usuario);
-				ViewBag.Nombre = nombre;
-                return View("RegistroExitoso");
-			}
+				_sistema.AgregarUsuario(cliente);
+                HttpContext.Session.SetString("nombre", cliente.Nombre);
+                HttpContext.Session.SetString("mail", cliente.Mail);
+                HttpContext.Session.SetString("rol", cliente.Rol);
+                HttpContext.Session.SetInt32("saldo", cliente.Saldo);
+                return RedirectToAction("index", new { mensaje = "Registro exitoso" });
+            }
 			catch (Exception e)
 			{
-				ViewBag.ErrorMessage = e.Message;
-				return View("ErrorRegistro");
+				ViewBag.mensaje = e.Message;
 			}
+            return View(cliente);
 		}
 
 

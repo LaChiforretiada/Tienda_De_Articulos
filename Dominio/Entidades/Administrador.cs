@@ -6,6 +6,12 @@
         {
             get { return "Administrador"; }
         }
+       
+        public Administrador()
+        {
+        }
+
+
         public Administrador(string nombre,
                              string apellido,
                              string mail,

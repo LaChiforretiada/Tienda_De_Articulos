@@ -3,7 +3,7 @@
     public class Subasta : Publicacion
     {
 
-       private List<Oferta> _ofertas = new List<Oferta>();
+        private List<Oferta> _ofertas = new List<Oferta>();
 
         public List<Oferta> Ofertas
         {
@@ -25,7 +25,7 @@
 
         public override void AgregarOferta(Oferta oferta)
         {
-            if (oferta == null) 
+            if (oferta == null)
             {
                 throw new Exception("No se recibieron valores");
             }
@@ -33,6 +33,28 @@
             _ofertas.Add(oferta);
         }
 
+		public override int MontoMasAlto()
+		{
+			int masAlto = 0;
+			foreach (Oferta item in _ofertas)
+			{
+				if (_ofertas.Count != 0)
+				{
+                   masAlto = Ofertas.Max(item => item.Monto);
+				}
+			}
+			return masAlto;
+		}
+
+        public override bool EstadoPublicacion()
+        {
+            bool esT = false;
+            if (Estado == "ABIERTA")
+            {
+                esT = true;
+            }
+            return esT;
+        }
 
         public override string ToString()
         {
@@ -42,7 +64,7 @@
             {
                 if (_ofertas.Count <= 0)
                 {
-                    respuesta += $"No contiene articulos";
+                    respuesta += $"No contiene ofertas";
                 }
                 else
                 {
@@ -50,7 +72,7 @@
                 }
             }
             return respuesta;
-           
+
         }
     }
 }

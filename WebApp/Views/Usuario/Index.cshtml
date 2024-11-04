@@ -1,8 +1,13 @@
 ﻿@using Dominio.Entidades;
 <h1>Ingreso al sistema</h1>
-<h2>Bienvenido @ViewBag.Mail </h2>
-
-
+<h2>Bienvenido @ViewBag.Nombre </h2>
+<hr />
+@if (ViewBag.mensaje != null)
+{
+	<div class="alert alert-success" role="alert">
+		@ViewBag.mensaje
+	</div>
+}
 
 @if (ViewBag.Rol == "Administrador")
 {
@@ -15,7 +20,6 @@ else if (ViewBag.Rol == "Cliente")
 {
     <h2>Funcionalidades de Cliente</h2>
     <!-- Contenido específico para el cliente -->
-    <a href="/Client/ViewPurchases">Ver Compras</a>
-    <a href="/Client/Profile">Mi Perfil</a>
+    <a class="btn btn-outline-dark" href="/Publicacion/Index">Ver Publicaciones</a>
 }
 

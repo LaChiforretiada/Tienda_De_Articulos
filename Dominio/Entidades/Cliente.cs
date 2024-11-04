@@ -4,14 +4,17 @@ namespace Dominio.Entidades
 {
     public class Cliente : Usuario
     {
-        public decimal Saldo { get; set; }
+        public int Saldo { get; set; }
 
         public override string Rol
         {
             get { return "Cliente"; }
         }
 
-        public Cliente(decimal saldo, string nombre, string apellido, string mail, string contrasenia) : base(nombre, apellido, mail, contrasenia)
+
+        public Cliente() { }
+
+        public Cliente(int saldo, string nombre, string apellido, string mail, string contrasenia) : base(nombre, apellido, mail, contrasenia)
         {
             Saldo = saldo;
         }

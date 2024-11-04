@@ -1,44 +1,112 @@
 ﻿@using Dominio.Entidades;
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+<h1 class="text-center">LISTA DE PUBLICACIONES</h1>
+<br />
+
+
+@* <div>
+    <form action="/publicacion/FiltroPublicaciones">
+
+        <select name="idPubli">
+            @foreach (Publicacion item in ViewBag.Publicaciones)
+            {
+                <option value="@item.Id">@item.Nombre</option>
+            }
+        </select>
+
+        <button type="submit">Buscar</button>
+    </form>
+</div> *@
+
+<h4>Saldo Disponible: @ViewBag.Saldo</h4>
+@if (ViewBag.mensaje != null)
+{
+    <div class="alert alert-dark" role="alert">
+        @ViewBag.mensaje
+    </div>
 }
 
-<h1 class="text-center">LISTA DE PUBLICACIONES</h1>
 
-<div>
-<form action="/publicacion/FiltroPublicaciones">
+<br />
 
-	<select name="idPubli">
-		@foreach (Publicacion item in ViewBag.Publicaciones)
-		{
-			<option value="@item.Id">@item.Nombre</option>
-		}
-	</select>
+<h2 class="text-center border-bottom">Ventas</h2>
+<br />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Articulos</th>
+            <th scope="col">Precio</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Publicacion item in ViewBag.Publicaciones)
+        {
+            @if (item is Venta)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Estado</td>
+                    <td>@foreach (Articulo unArt in item.Articulos)
+                        {
+                            @unArt.Nombre <br>
+                        } </td>
+                    <td>$@item.PrecioPubli()</td>
+                    @if (item.EstadoPublicacion())
+                    {
+                        <td><a href="" class="btn btn-primary">Ver</a></td>
+                        <td><a href="FinalizarVenta?id=@item.Id" class="btn btn-success">Comprar</a></td>
+                     
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>
 
-	<button type="submit">Buscar</button>
-</form>
-</div>
+<br />
+<h2 class="text-center border-bottom">Subastas</h2>
+<br />
 
 <table class="table table-striped">
-	<thead>
-		<tr>
-			<th scope="col">Nombre</th>
-			<th scope="col">Estado</th>
-			<th scope="col">Articulos</th>
-			<th scope="col">Precio</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (Publicacion item in ViewBag.Publicaciones)
-		{
-			<tr>
-				<td>@item.Nombre</td>
-				<td>@item.Estado</td>
-				<td>@foreach (Articulo unArt in item.Articulos) {@unArt.Nombre <br>} </td>
-				<td> $@item.PrecioPubli()</td>
-			</tr>
-		}
-	</tbody>
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Articulos</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Oferta Mas Alta</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Publicacion item in ViewBag.Publicaciones)
+        {
+            @if (item is Subasta)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Estado</td>
+                    <td>
+                        @foreach (Articulo unArt in item.Articulos)
+                        {
+                            @unArt.Nombre <br>
+                        }
+                    </td>
+                    <td>$@item.PrecioPubli()</td>
+                    <td>$@item.MontoMasAlto()</td>
+                    @if (item.EstadoPublicacion())
+                    {
+                        <td><a href="" class="btn btn-primary">Ver</a></td>
+                        <td><a href="" class="btn btn-success">Subastar</a></td>
+
+                    }
+                </tr>
+
+            }
+        }
+    </tbody>
 </table>

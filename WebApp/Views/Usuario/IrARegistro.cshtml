@@ -1,14 +1,19 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@using Dominio.Entidades
+@model Cliente
+
+@if (ViewBag.mensaje != null)
+{
+	<div class="alert alert-danger" role="alert">
+		@ViewBag.mensaje
+	</div>
 }
 
-<form action="/usuario/TomarDatos" method="post">
-	<input type="text" name="nombre" placeholder="Ingrese nombre" />
-	<input type="text" name="apellido" placeholder="Ingrese apellido" />
-	<input type="text" name="mail" placeholder="Ingrese mail" />
+<h1>Registrese</h1>
+<form method="post">
+	<input type="text" name="nombre" placeholder="Ingrese nombre"  value="@Model.Nombre"/>
+	<input type="text" name="apellido" placeholder="Ingrese apellido" value="@Model.Apellido" />
+	<input type="text" name="mail" placeholder="Ingrese mail" value="@Model.Mail" />
 	<input type="text" name="contrasenia" placeholder="Ingrese contraseña" />
-	<input type="number" name="saldo" placeholder="Ingrese saldo" step="0.01" />
+	<input type="number" name="saldo" placeholder="Ingrese saldo" step="0.01" value="@Model.Saldo" />
 	<button type="submit">Registrar</button>
 </form>
