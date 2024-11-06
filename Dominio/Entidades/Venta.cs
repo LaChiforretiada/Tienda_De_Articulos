@@ -1,4 +1,6 @@
-﻿namespace Dominio.Entidades
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Dominio.Entidades
 {
     public class Venta : Publicacion
     {
@@ -15,10 +17,16 @@
             base.Validar();
         }
 
-        //private void ValidarOferta()
+        //public override void EsOfertaRelampago()
         //{
-        //    if (OfertaRelampago) { }
+        //    int numero = PrecioPubli();
+        //    if (OfertaRelampago == true)
+        //    {
+        //        Precio -= (numero * 0.20);
+        //    }
         //}
+
+
 
         public override bool EstadoPublicacion()
         {
@@ -37,6 +45,18 @@
             return respuesta;
         }
 
+        public override int PrecioPubli()
+        {
+            int precioBase = base.PrecioPubli();
+            if (OfertaRelampago)
+            {
+                return precioBase -= (int)(precioBase * 0.20);
+            }
+            else
+            {
+                return base.PrecioPubli();
+            }
+        }
 
 
     }

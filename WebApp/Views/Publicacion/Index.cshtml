@@ -1,7 +1,7 @@
 ﻿@using Dominio.Entidades;
+@model Oferta
 <h1 class="text-center">LISTA DE PUBLICACIONES</h1>
 <br />
-
 
 @* <div>
     <form action="/publicacion/FiltroPublicaciones">
@@ -76,10 +76,11 @@
             <th scope="col">Nombre</th>
             <th scope="col">Estado</th>
             <th scope="col">Articulos</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Oferta Mas Alta</th>
+            <th scope="col">Precio Inicial</th>
+            <th scope="col">Precio Actual (Oferta Mas Alta)</th>
             <th scope="col"></th>
             <th scope="col"></th>
+            @* <th scope="col"></th> *@
         </tr>
     </thead>
     <tbody>
@@ -100,9 +101,7 @@
                     <td>$@item.MontoMasAlto()</td>
                     @if (item.EstadoPublicacion())
                     {
-                        <td><a href="" class="btn btn-primary">Ver</a></td>
-                        <td><a href="" class="btn btn-success">Subastar</a></td>
-
+                        <td><a href="RealizarSubasta?id=@item.Id" class="btn btn-success">Subastar</a></td>
                     }
                 </tr>
 
@@ -110,3 +109,4 @@
         }
     </tbody>
 </table>
+

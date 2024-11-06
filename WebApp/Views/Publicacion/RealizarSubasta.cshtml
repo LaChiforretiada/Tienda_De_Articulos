@@ -1,0 +1,17 @@
+﻿@using Dominio.Entidades;
+@model Oferta
+
+
+<h1>Alta Oferta</h1>
+
+@if (ViewBag.mensaje != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.mensaje
+    </div>
+}
+
+<form method="post">
+    <input type="number" name="Monto" placeholder="Ingrese monto" value="@Model.Monto">
+    <button type="submit">Subastar</button>
+</form>

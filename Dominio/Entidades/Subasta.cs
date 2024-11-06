@@ -35,7 +35,7 @@
 
 		public override int MontoMasAlto()
 		{
-			int masAlto = 0;
+			int masAlto = PrecioPubli();
 			foreach (Oferta item in _ofertas)
 			{
 				if (_ofertas.Count != 0)
@@ -56,6 +56,12 @@
             return esT;
         }
 
+
+        public override int PrecioPubli()
+        {
+            return base.PrecioPubli();
+       
+        }
         public override string ToString()
         {
             string respuesta = base.ToString();

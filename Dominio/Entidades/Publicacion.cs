@@ -18,9 +18,11 @@
 
         public string Estado { get; set; }
 
+
         public DateTime FechaPublicacion { get; set; }
 
         public DateTime FechaFinalizacion { get; set; }
+
         public Cliente Cliente { get; set; }
 
         public Administrador Administrador { get; set; }
@@ -34,6 +36,7 @@
             Nombre = nombre;
             Estado = "ABIERTA";
             FechaPublicacion = fechaPublicacion;
+         
         }
 
         public virtual void Validar()
@@ -69,12 +72,13 @@
             }
             articulo.Validar();
             _articulos.Add(articulo);
+            //Precio = PrecioPubli();
         }
 
 
 
 
-        public int PrecioPubli()
+        public virtual int PrecioPubli()
         {
 
             int total = 0;
@@ -102,6 +106,11 @@
             }
             return esT;
         }
+
+        //public virtual bool EsOfertaRelampago()
+        //{
+            
+        //}
 
         public override string ToString()
         {

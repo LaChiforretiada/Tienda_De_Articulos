@@ -32,6 +32,9 @@ namespace Dominio.Entidades
                 throw new Exception("No puedes tener saldo negativo");
             } 
         }
+
+
+
         public override string ToString()
         {
             string respuesta = base.ToString();

@@ -291,7 +291,7 @@ namespace Dominio
             Publicacion unaPublicacion = null;
 
             // Ventas
-            unaPublicacion = new Venta("Para jugar tenis", new DateTime(2024, 11, 30), true);
+            unaPublicacion = new Venta("Para jugar tenis", new DateTime(2024, 11, 30), false); //pusimos false
             AgregarPublicacion(unaPublicacion);
             List<Articulo> articulosVenta1 = new List<Articulo> { ObtenerArticulo("pelota"), ObtenerArticulo("raqueta"), ObtenerArticulo("zapatillas") };
             AgregarArticulosAPublicacion(unaPublicacion, articulosVenta1);
@@ -514,15 +514,23 @@ namespace Dominio
 
         public void AgregarOfertaASubasta(string mail,string subasta, Oferta oferta)
         {
-            Usuario unU = ObtenerUsuario(mail);
+            Cliente unC = ObtenerCliente(mail);
             Publicacion subas = ObtenerPublicacion(subasta);
             if(subas == null)
             {
                 throw new Exception("No existe esa subasta");
             }
-            if (unU == null)
+            if (unC == null)
             {
                 throw new Exception("No existe Usuario");
+            }
+            if(oferta.Monto > unC.Saldo)
+            {
+                throw new Exception("No dispone de Saldo suficiente");
+            }
+            if (oferta.Monto <= subas.MontoMasAlto())
+            {
+                throw new Exception("El monto debe ser mayor a la oferta mas alta");
             }
             subas.AgregarOferta(oferta);
         }
@@ -606,6 +614,8 @@ namespace Dominio
             }
             return null;
         }
+
+      
 
     }
 }
