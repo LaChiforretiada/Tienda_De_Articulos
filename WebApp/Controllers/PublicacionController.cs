@@ -35,18 +35,15 @@ namespace WebApp.Controllers
                 var saldo = HttpContext.Session.GetInt32("saldo");
                 int precioDePublicacion = unaPublicacion.PrecioPubli(); 
                 int saldoDeCliente = unC.Saldo;
-                //HACER ESTO EN SISTEMA
                 if (unaPublicacion == null || unC == null)
                 {
                     throw new Exception("La publicacion o el cliente no existe");
                 }
                 if (saldoDeCliente >= precioDePublicacion)
                 {
-                    unC.Saldo = saldoDeCliente-precioDePublicacion;
+                    _sistema.VentaExitosa(unC, unaPublicacion);
                     HttpContext.Session.SetInt32("saldo", unC.Saldo);
-                    unaPublicacion.Estado = "CERRADA";
                     ViewBag.Saldo = unC.Saldo;
-                    unaPublicacion.Cliente = unC;
                     return RedirectToAction("index", new { mensaje = "Compra Exitosa" });
                 }
                 else

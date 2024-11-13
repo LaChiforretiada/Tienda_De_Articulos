@@ -27,6 +27,14 @@ using Microsoft.AspNetCore.Mvc;
                 HttpContext.Session.SetString("mail", mail);
                 HttpContext.Session.SetString("contra", contra);
                 HttpContext.Session.SetString("rol", _sistema.ObtenerUsuarioConContrasenia(mail, contra).Rol);
+                HttpContext.Session.SetString("nombre", usuario.Nombre);
+
+                    if (usuario is Cliente cliente)
+                    {
+                        HttpContext.Session.SetInt32("saldo", cliente.Saldo);
+                    }
+
+
                     return Redirect("/Usuario/index");
                 }
                 else
@@ -40,5 +48,14 @@ using Microsoft.AspNetCore.Mvc;
             }
             return View();
         }
+    
+    
+    public IActionResult LogOut() {
+        HttpContext.Session.Clear();   
+        return RedirectToAction("Ingresar");   
+
+        }
+    
+    
     }
 }

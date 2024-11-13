@@ -1,19 +1,4 @@
-﻿@* <h1 class="">Bienvenido a SwapRecharged</h1>
-@if (ViewBag.mensaje != null)
-{
-    <div class="alert alert-danger" role="alert">
-        @ViewBag.mensaje
-    </div>
-}
-<form method="post" class="">
-<hr/>
-<h2 class="mt-3 mb-3">Ingrese sus datos</h2>
-    <input type="email" name="mail" placeholder="Ingrese mail" />
-    <input type="text" name="contra" placeholder="Ingrese contraseña" />
-    <button class="btn btn-dark" type="submit">Ingresar</button>
-</form>
-<a asp-controller="Usuario" asp-action="IrARegistro" class="btn btn-outline-dark p-1 mt-2">Registrarse</a> *@
-
+﻿
 <h1 class="">Bienvenido a SwapRecharged</h1>
 @if (ViewBag.mensaje != null)
 {
@@ -24,10 +9,10 @@
 <form method="post" class="">
     <hr />
     <h2 class="mt-3 mb-3">Ingrese sus datos</h2>
-    <input type="email" name="mail" placeholder="Ingrese mail" />
-    <input type="text" name="contra" placeholder="Ingrese contraseña" />
+    <input type="email" name="mail" placeholder="Ingrese mail" value="carlosm@mail.com" />
+    <input type="text" name="contra" placeholder="Ingrese contraseña" value="CarlosPass1" />
 
-    <!-- Contenedor para los botones alineados -->
+
     <div class="mt-3">
         <button class="btn btn-outline-dark" type="submit">Ingresar</button>
         <a asp-controller="Usuario" asp-action="IrARegistro" class="btn btn-outline-dark ms-2">Registrarse</a>

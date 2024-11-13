@@ -22,7 +22,7 @@ namespace Dominio.Entidades
         public override void Validar()
         {
             base.Validar();
-            ValidarSaldo();
+          
         }
 
         private void ValidarSaldo()
@@ -33,7 +33,18 @@ namespace Dominio.Entidades
             } 
         }
 
-
+        public void RecargaSaldo(int montoCarga)
+        {
+            if (montoCarga <= 0 || montoCarga == null)
+            {
+                throw new Exception("No puedes recargar saldo negativo");
+            }
+            else
+            {
+                Saldo = Saldo + montoCarga;
+            }
+           
+        }
 
         public override string ToString()
         {

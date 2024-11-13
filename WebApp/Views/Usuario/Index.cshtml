@@ -13,16 +13,16 @@
 {
     <h2>Funcionalidades de Administrador</h2>
     <!-- Contenido específico para el administrador -->
-    <a href="/Admin/ManageUsers">Gestionar Usuarios</a>
-    <a href="/Admin/Reports">Ver Reportes</a>
+    <a class="btn btn-outline-dark" href="/Publicacion/Index">Ver Subastas</a>
+    <a class="btn btn-outline-danger" href="/Login/LogOut">Logout</a>
 }
 else if (ViewBag.Rol == "Cliente")
 {
     <h2>Funcionalidades de Cliente</h2>
     <!-- Contenido específico para el cliente -->
     <a class="btn btn-outline-dark" href="/Publicacion/Index">Ver Publicaciones</a>
-    <a class="btn btn-outline-dark" href="/Publicacion/Index">Cargar Saldo</a>
-    <a class="btn btn-outline-danger" href="/Publicacion/Index">Logout</a>
+    <a class="btn btn-outline-dark" href="/Usuario/RecargarSaldo">Cargar Saldo</a>
+    <a class="btn btn-outline-danger" href="/Login/LogOut">Logout</a>
 }
  
 

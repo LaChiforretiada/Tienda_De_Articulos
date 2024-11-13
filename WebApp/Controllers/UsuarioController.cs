@@ -20,6 +20,7 @@ namespace WebApp.Controllers
             ViewBag.mensaje = mensaje;
             ViewBag.Rol = rol;
             ViewBag.Mail = mail;
+            ViewBag.Saldo = saldo;
 			ViewBag.Usuarios = _sistema.Usuarios;
 			return View();
         }
@@ -47,7 +48,6 @@ namespace WebApp.Controllers
                 HttpContext.Session.SetString("nombre", cliente.Nombre);
                 HttpContext.Session.SetString("mail", cliente.Mail);
                 HttpContext.Session.SetString("rol", cliente.Rol);
-                HttpContext.Session.SetInt32("saldo", cliente.Saldo);
                 return RedirectToAction("index", new { mensaje = "Registro exitoso" });
             }
 			catch (Exception e)
@@ -57,6 +57,33 @@ namespace WebApp.Controllers
             return View(cliente);
 		}
 
+        [HttpGet]
+        public IActionResult RecargarSaldo(string mensaje)
+        {
+            string mail = HttpContext.Session.GetString("mail");
+            ViewBag.Usuarios = _sistema.Usuarios;
+            return View();
+        }
 
+        [HttpPost]
+        public IActionResult RecargarSaldo(int montoRecarga)
+  {
+            ViewBag.Usuarios = _sistema.Usuarios;
+            try
+           {
+                string mail = HttpContext.Session.GetString("mail");
+                Cliente unC = _sistema.ObtenerCliente(mail);
+                var saldo = HttpContext.Session.GetInt32("saldo");
+                unC.RecargaSaldo(montoRecarga);
+                HttpContext.Session.SetInt32("saldo", unC.Saldo);
+                ViewBag.Saldo = unC.Saldo;
+                return RedirectToAction("index", new { mensaje = "Recarga exitosa" });
+            }
+            catch (Exception e)
+            {
+                ViewBag.mensaje = e.Message;
+            }
+            return View("index");
+        }
     }
 }

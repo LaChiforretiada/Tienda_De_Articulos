@@ -616,6 +616,11 @@ namespace Dominio
         }
 
       
-
+        public void VentaExitosa(Cliente unC, Publicacion unaPublicacion)
+        {
+            unC.Saldo = unC.Saldo - unaPublicacion.PrecioPubli();
+            unaPublicacion.Estado = "CERRADA";
+            unaPublicacion.Cliente = unC;
+        }
     }
 }

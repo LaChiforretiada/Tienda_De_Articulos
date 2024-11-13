@@ -1,8 +1,6 @@
 ﻿@using Dominio.Entidades;
-@model Oferta
 
-
-<h1>¡Realice una Oferta!</h1>
+<h1>Recargue su bolsillito!</h1>
 
 @if (ViewBag.mensaje != null)
 {
@@ -12,6 +10,6 @@
 }
 
 <form method="post">
-    <input type="number" name="Monto" placeholder="Ingrese monto" value="@Model.Monto">
-    <button type="submit">Subastar</button>
+    <input type="number" name="montoRecarga" placeholder="Ingrese monto" value="montoRecarga">
+    <button type="submit">Recargar</button>
 </form>
