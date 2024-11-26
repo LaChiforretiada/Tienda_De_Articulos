@@ -1,6 +1,7 @@
 ﻿@using Dominio.Entidades;
 <h1>Ingreso al sistema</h1>
-<h2>Bienvenido @ViewBag.Nombre </h2>
+<h2 class="d-inline">Bienvenido, </h2>
+<h2 class="d-inline text-primary">@ViewBag.Nombre</h2>
 <hr />
 @if (ViewBag.mensaje != null)
 {
@@ -11,14 +12,12 @@
 
 @if (ViewBag.Rol == "Administrador")
 {
-    <h2>Funcionalidades de Administrador</h2>
     <!-- Contenido específico para el administrador -->
-    <a class="btn btn-outline-dark" href="/Publicacion/Index">Ver Subastas</a>
+    <a class="btn btn-outline-dark" href="/Publicacion/VistaAdmin">Ver Subastas</a>
     <a class="btn btn-outline-danger" href="/Login/LogOut">Logout</a>
 }
 else if (ViewBag.Rol == "Cliente")
 {
-    <h2>Funcionalidades de Cliente</h2>
     <!-- Contenido específico para el cliente -->
     <a class="btn btn-outline-dark" href="/Publicacion/Index">Ver Publicaciones</a>
     <a class="btn btn-outline-dark" href="/Usuario/RecargarSaldo">Cargar Saldo</a>

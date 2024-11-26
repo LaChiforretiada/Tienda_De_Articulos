@@ -3,20 +3,6 @@
 <h1 class="text-center">LISTA DE PUBLICACIONES</h1>
 <br />
 
-@* <div>
-    <form action="/publicacion/FiltroPublicaciones">
-
-        <select name="idPubli">
-            @foreach (Publicacion item in ViewBag.Publicaciones)
-            {
-                <option value="@item.Id">@item.Nombre</option>
-            }
-        </select>
-
-        <button type="submit">Buscar</button>
-    </form>
-</div> *@
-
 <h4>Saldo Disponible: @ViewBag.Saldo</h4>
 @if (ViewBag.mensaje != null)
 {
@@ -24,8 +10,6 @@
         @ViewBag.mensaje
     </div>
 }
-
-
 <br />
 
 <h2 class="text-center border-bottom">Ventas</h2>

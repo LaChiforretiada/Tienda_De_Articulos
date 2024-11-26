@@ -59,5 +59,14 @@ namespace Dominio.Entidades
         }
 
 
+        public override bool TieneOferta()
+        {
+            return false;
+        }
+
+        public override Oferta RetornarOfertaMasAlta()
+        {
+            return null;
+        }
     }
 }

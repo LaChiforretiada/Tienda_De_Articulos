@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Filtros;
 
 namespace WebApp.Controllers
 {
@@ -8,6 +9,9 @@ namespace WebApp.Controllers
     {
         private Sistema _sistema = Sistema.Instancia;
 
+
+
+        [Logueado]
         [HttpGet]
         public IActionResult Index(string mensaje)
         {
@@ -25,10 +29,6 @@ namespace WebApp.Controllers
 			return View();
         }
 
-        public IActionResult Ver(int id)
-        {
-            return View();
-        }
 
 		[HttpGet]
 		public IActionResult IrARegistro(string mensaje)
@@ -57,6 +57,7 @@ namespace WebApp.Controllers
             return View(cliente);
 		}
 
+        [EsCliente]
         [HttpGet]
         public IActionResult RecargarSaldo(string mensaje)
         {
@@ -65,6 +66,7 @@ namespace WebApp.Controllers
             return View();
         }
 
+        [EsCliente]
         [HttpPost]
         public IActionResult RecargarSaldo(int montoRecarga)
   {

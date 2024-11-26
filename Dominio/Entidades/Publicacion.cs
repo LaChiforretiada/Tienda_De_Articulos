@@ -107,10 +107,7 @@
             return esT;
         }
 
-        //public virtual bool EsOfertaRelampago()
-        //{
-            
-        //}
+
 
         public override string ToString()
         {
@@ -137,12 +134,18 @@
             return respuesta;
         }
 
+
+        public abstract bool TieneOferta();
+
+
         public override bool Equals(object? obj)
         {
             Publicacion publicacion = obj as Publicacion;
             return publicacion != null && Nombre == publicacion.Nombre;
         }
 
+
+        public abstract Oferta RetornarOfertaMasAlta();
 
     }
 }

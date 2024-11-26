@@ -1,0 +1,50 @@
+﻿@using Dominio.Entidades;
+
+<h1 class="text-center">LISTA DE SUBASTAS</h1>
+
+@if (ViewBag.mensaje != null)
+{
+    <div class="alert alert-dark" role="alert">
+        @ViewBag.mensaje
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Articulos</th>
+            <th scope="col">Precio Inicial</th>
+            <th scope="col">Precio Actual (Oferta Mas Alta)</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Accion</th>
+            @* <th scope="col"></th> *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Publicacion item in ViewBag.PublicacionesOrdenadas)
+        {
+            @if (item is Subasta)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Estado</td>
+                    <td>
+                        @foreach (Articulo unArt in item.Articulos)
+                        {
+                            @unArt.Nombre <br>
+                        }
+                    </td>
+                    <td>$@item.PrecioPubli()</td>
+                    <td>$@item.MontoMasAlto()</td>
+                    <td>@item.FechaPublicacion.ToString("yyyy-MM-dd")</td>
+                    @if (item.EstadoPublicacion() && item.TieneOferta())
+                    {
+                        <td><a href="CerrarSubasta?id=@item.Id" class="btn btn-success">Cerrar Subasta</a></td>
+                    }
+                </tr>
+            }
+        }
+    </tbody>
+</table>

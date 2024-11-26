@@ -4,8 +4,7 @@ using System.Net.Mail;
 
 namespace Dominio
 {
-    //VERIFICAR MAIL
-    //PREGUNTAR SOBRE LA LISTA DE ARTICULOS EN PUBLICACIONES TODO
+
     public class Sistema
     {
         private static Sistema instancia;
@@ -291,88 +290,88 @@ namespace Dominio
             Publicacion unaPublicacion = null;
 
             // Ventas
-            unaPublicacion = new Venta("Para jugar tenis", new DateTime(2024, 11, 30), false); //pusimos false
+            unaPublicacion = new Venta("Para jugar tenis", new DateTime(2024, 12, 30), false); //pusimos false
             AgregarPublicacion(unaPublicacion);
             List<Articulo> articulosVenta1 = new List<Articulo> { ObtenerArticulo("pelota"), ObtenerArticulo("raqueta"), ObtenerArticulo("zapatillas") };
             AgregarArticulosAPublicacion(unaPublicacion, articulosVenta1);
 
-            unaPublicacion = new Venta("Ropa deportiva", new DateTime(2024, 11, 30), true);
+            unaPublicacion = new Venta("Ropa deportiva", new DateTime(2024, 12, 30), true);
             AgregarPublicacion(unaPublicacion);
             List<Articulo> articulosVenta2 = new List<Articulo> { ObtenerArticulo("remera"), ObtenerArticulo("gorra"), ObtenerArticulo("campera") };
             AgregarArticulosAPublicacion(unaPublicacion, articulosVenta2);
 
-            unaPublicacion = new Venta("Venta de deportes", new DateTime(2024, 11, 30), true);
+            unaPublicacion = new Venta("Venta de deportes", new DateTime(2024, 12, 30), true);
             AgregarPublicacion(unaPublicacion);
             List<Articulo> listaArticulosVenta1 = new List<Articulo> { ObtenerArticulo("pelota"), ObtenerArticulo("gorra"), ObtenerArticulo("campera") };
             AgregarArticulosAPublicacion(unaPublicacion, listaArticulosVenta1);
 
-            unaPublicacion = new Venta("Venta de tecnología", new DateTime(2024, 11, 30), true);
+            unaPublicacion = new Venta("Venta de tecnología", new DateTime(2024, 12, 30), true);
             AgregarPublicacion(unaPublicacion);
             List<Articulo> listaArticulosVenta2 = new List<Articulo> { ObtenerArticulo("laptop"), ObtenerArticulo("teléfono"), ObtenerArticulo("tablet") };
             AgregarArticulosAPublicacion(unaPublicacion, listaArticulosVenta2);
 
-            unaPublicacion = new Venta("Venta de juguetes", new DateTime(2024, 11, 26), true);
+            unaPublicacion = new Venta("Venta de juguetes", new DateTime(2024, 12, 26), true);
             unaPublicacion.Estado = "CERRADA";
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("auto"), ObtenerArticulo("bicicleta") });
 
-            unaPublicacion = new Venta("Venta de muebles", new DateTime(2024, 11, 29), true);
+            unaPublicacion = new Venta("Venta de muebles", new DateTime(2024, 12, 29), true);
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("escritorio"), ObtenerArticulo("silla") });
 
-            unaPublicacion = new Venta("Venta de electrodomésticos", new DateTime(2024, 11, 25), true);
+            unaPublicacion = new Venta("Venta de electrodomésticos", new DateTime(2024, 12, 25), true);
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("microondas"), ObtenerArticulo("ventilador") });
 
-            unaPublicacion = new Venta("Venta de accesorios", new DateTime(2024, 11, 28), true);
+            unaPublicacion = new Venta("Venta de accesorios", new DateTime(2024, 12, 28), true);
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("reloj"), ObtenerArticulo("mochila") });
 
-            unaPublicacion = new Venta("Venta de electrodomésticos grandes", new DateTime(2024, 11, 30), true);
+            unaPublicacion = new Venta("Venta de electrodomésticos grandes", new DateTime(2024, 12, 30), true);
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("heladera"), ObtenerArticulo("lavarropas") });
 
-            unaPublicacion = new Venta("Venta de herramientas", new DateTime(2024, 11, 25), true);
+            unaPublicacion = new Venta("Venta de herramientas", new DateTime(2024, 12, 25), true);
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("taladro"), ObtenerArticulo("martillo") });
 
             // Subastas
-            unaPublicacion = new Subasta("Subasta juguetes", new DateTime(2024, 11, 25));
+            unaPublicacion = new Subasta("Subasta juguetes", new DateTime(2024, 12, 25));
             AgregarPublicacion(unaPublicacion);
             List<Articulo> articulosSubasta1 = new List<Articulo> { ObtenerArticulo("muñeca"), ObtenerArticulo("auto") };
             AgregarArticulosAPublicacion(unaPublicacion, articulosSubasta1);
 
-            unaPublicacion = new Subasta("Subasta tecnología", new DateTime(2024, 11, 30));
+            unaPublicacion = new Subasta("Subasta tecnología", new DateTime(2024, 12, 30));
             AgregarPublicacion(unaPublicacion);
             List<Articulo> articulosSubasta2 = new List<Articulo> { ObtenerArticulo("auriculares"), ObtenerArticulo("bicicleta") };
             AgregarArticulosAPublicacion(unaPublicacion, articulosSubasta2);
 
-            unaPublicacion = new Subasta("Subasta de vehículos", new DateTime(2024, 11, 22));
+            unaPublicacion = new Subasta("Subasta de vehículos", new DateTime(2024, 12, 22));
             AgregarPublicacion(unaPublicacion);
             List<Articulo> listaArticulosSubasta2 = new List<Articulo> { ObtenerArticulo("coche"), ObtenerArticulo("moto") };
             AgregarArticulosAPublicacion(unaPublicacion, listaArticulosSubasta2);
 
-            unaPublicacion = new Subasta("Subasta de electrodomésticos", new DateTime(2024, 11, 30));
+            unaPublicacion = new Subasta("Subasta de electrodomésticos", new DateTime(2024, 12, 30));
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("microondas"), ObtenerArticulo("heladera") });
 
-            unaPublicacion = new Subasta("Subasta de herramientas", new DateTime(2024, 11, 22));
+            unaPublicacion = new Subasta("Subasta de herramientas", new DateTime(2024, 12, 22));
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("taladro"), ObtenerArticulo("martillo") });
 
-            unaPublicacion = new Subasta("Subasta de electrodomésticos pequeños", new DateTime(2024, 11, 24));
+            unaPublicacion = new Subasta("Subasta de electrodomésticos pequeños", new DateTime(2024, 12, 24));
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("tostadora"), ObtenerArticulo("licuadora") });
 
-            unaPublicacion = new Subasta("Subasta de accesorios", new DateTime(2024, 11, 26));
+            unaPublicacion = new Subasta("Subasta de accesorios", new DateTime(2024, 12, 26));
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("mochila"), ObtenerArticulo("reloj") });
 
-            unaPublicacion = new Subasta("Subasta de tecnología avanzada", new DateTime(2024, 11, 28));
+            unaPublicacion = new Subasta("Subasta de tecnología avanzada", new DateTime(2024, 12, 28));
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("smartwatch"), ObtenerArticulo("laptop") });
 
-            unaPublicacion = new Subasta("Subasta de vehículos de lujo", new DateTime(2024, 11, 25));
+            unaPublicacion = new Subasta("Subasta de vehículos de lujo", new DateTime(2024, 12, 25));
             AgregarPublicacion(unaPublicacion);
             AgregarArticulosAPublicacion(unaPublicacion, new List<Articulo> { ObtenerArticulo("coche"), ObtenerArticulo("moto") });
 
@@ -602,6 +601,24 @@ namespace Dominio
             return aux;
         }
 
+        public List<Administrador> UsuarioAdmin()
+        {
+            List<Administrador> aux = new List<Administrador>();
+
+            foreach (Usuario unUsuario in _usuarios)
+            {
+                // aplico downCast a la lista
+                if (unUsuario is Administrador)
+                {
+                    Administrador unAdmin = (Administrador)unUsuario;
+                    aux.Add(unAdmin);
+                }
+            }
+
+            return aux;
+        }
+
+
         public Cliente ObtenerCliente(string email) 
         {
             List<Cliente> aux = UsuariosClientes();
@@ -615,12 +632,68 @@ namespace Dominio
             return null;
         }
 
-      
+        public Administrador ObtenerAdminPorMail(string email) 
+        {
+
+            List<Administrador> aux = UsuarioAdmin();
+            foreach (Administrador item in aux)
+            {
+                if (item.Mail == email)
+                {
+                    return item;
+                }
+            }
+            return null;
+
+        }
+
+
+        
+        public void CerrarSubasta(int id, string mail)
+        {
+            Publicacion subas = ObtenerPublicacionPorId(id);
+            Administrador admin = ObtenerAdminPorMail(mail);
+            Oferta ofertaMasAlta = subas.RetornarOfertaMasAlta();
+            string mailCliente = ofertaMasAlta.UsuarioMail;
+            Cliente cliente = ObtenerCliente(mailCliente);
+            if (admin == null) 
+            {
+                throw new Exception("No se encontro el Admin");
+            }
+            if (subas == null)
+            {
+                throw new Exception("No se encontro la subasta");
+            }
+            cliente.Saldo = cliente.Saldo - ofertaMasAlta.Monto;
+            subas.Administrador = admin;
+            subas.Cliente = cliente;
+            subas.Estado = "CERRADA";
+        }
+
+
         public void VentaExitosa(Cliente unC, Publicacion unaPublicacion)
         {
             unC.Saldo = unC.Saldo - unaPublicacion.PrecioPubli();
             unaPublicacion.Estado = "CERRADA";
             unaPublicacion.Cliente = unC;
+        }
+
+
+
+        public List<Subasta> SubastasOrdenadas() { 
+            List<Subasta> aux = new List<Subasta>();   
+            
+            foreach (Publicacion unaP in _publicaciones)
+            {
+                if (unaP is Subasta)
+                {
+                    Subasta unaS = (Subasta)unaP;
+                    aux.Add(unaS);       
+                }
+            }
+            aux = aux.OrderBy(a => a.FechaPublicacion).ToList();
+            return aux;
+               
         }
     }
 }

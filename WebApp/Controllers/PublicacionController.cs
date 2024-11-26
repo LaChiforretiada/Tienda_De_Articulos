@@ -1,21 +1,28 @@
 ﻿using Dominio;
 using Dominio.Entidades;
 using Microsoft.AspNetCore.Mvc;
+using WebApp.Filtros;
 
 namespace WebApp.Controllers
 {
+    [Logueado]
     public class PublicacionController : Controller
     {
         private Sistema _sistema = Sistema.Instancia;
+
+        [EsCliente]
         public IActionResult Index(string mensaje)
         {
             ViewBag.mensaje = mensaje;
-            ViewBag.Publicaciones = _sistema.Publicaciones;
+            ViewBag.Publicaciones = _sistema.Publicaciones; 
             ViewBag.Articulos = _sistema.Articulos; 
             var saldo =  HttpContext.Session.GetInt32("saldo"); 
+            ////var mail = HttpContext.Session.GetString("mail");
+            //Cliente unC = _sistema.ObtenerCliente(mail);
             ViewBag.Saldo = saldo;  
             return View();
         }
+
 
 		public IActionResult FiltroPublicaciones(int idPubli)
 		{
@@ -24,7 +31,7 @@ namespace WebApp.Controllers
 			return View("index");
 		}
 
-
+        
 		public IActionResult FinalizarVenta(int id)
         {
             try
@@ -60,6 +67,7 @@ namespace WebApp.Controllers
             return View("index");
         }
 
+        [EsCliente]
         [HttpGet]
         public IActionResult RealizarSubasta(int id)
         {
@@ -68,7 +76,7 @@ namespace WebApp.Controllers
         }
 
 
-
+        [EsCliente]
         [HttpPost]
         public IActionResult RealizarSubasta(Oferta oferta, int id)
         {
@@ -79,9 +87,6 @@ namespace WebApp.Controllers
             DateTime fecha = DateTime.Now;
             oferta.UsuarioMail = mail;
             oferta.Fecha = fecha;
-            //ViewBag.Mail = mail;
-            //ViewBag.Fecha = fecha;
-            //ViewBag.Mail = mail;
             try
             {
                 _sistema.AgregarOfertaASubasta(mail, nombreSub, oferta);
@@ -96,8 +101,30 @@ namespace WebApp.Controllers
             return View(oferta);
         }
 
-            
+        [EsAdmin]
+        public IActionResult VistaAdmin(string mensaje) 
+        {
+            ViewBag.mensaje = mensaje;
+            ViewBag.PublicacionesOrdenadas = _sistema.SubastasOrdenadas();
+            ViewBag.Articulos = _sistema.Articulos;
+            return View();
+        }
 
+        [EsAdmin]
+        public IActionResult CerrarSubasta(int id)
+        {
+            string mail = HttpContext.Session.GetString("mail");
+            try
+            {
+                _sistema.CerrarSubasta(id, mail);
+                return RedirectToAction("VistaAdmin", new { mensaje = "Subasta Cerrada Con EXITO" });
 
-	}
+            }catch(Exception e)
+            {
+                ViewBag.mensaje = e.Message;
+            }
+            ViewBag.Id = id;
+            return View();
+        }
+    }
 }
